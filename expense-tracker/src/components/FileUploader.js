@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
+import axios from 'axios';
 
 const FileUploader = ({ onFileSelectSuccess, onFileSelectError }) => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -14,10 +15,28 @@ const FileUploader = ({ onFileSelectSuccess, onFileSelectError }) => {
         }
     };
 
+    const handleFileUpload = () => {
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+
+        axios.post('http://localhost:3000/upload', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        .then(response => {
+            // Handle response
+            onFileSelectSuccess(selectedFile);
+        })
+        .catch(error => {
+            onFileSelectError(error.message);
+        });
+    };
+
     return (
         <div>
             <input type="file" onChange={handleFileChange} />
-            <Button onClick={() => onFileSelectSuccess(selectedFile)}>Upload</Button>
+            <Button onClick={handleFileUpload}>Upload</Button>
         </div>
     );
 };
