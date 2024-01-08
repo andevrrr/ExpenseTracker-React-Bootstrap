@@ -9,9 +9,6 @@ const FileUploader = ({ onFileSelectSuccess, onFileSelectError }) => {
         const file = event.target.files[0];
         if (file) {
             setSelectedFile(file);
-            onFileSelectSuccess(file);
-        } else {
-            onFileSelectError('Please select a file to upload');
         }
     };
 
@@ -25,7 +22,6 @@ const FileUploader = ({ onFileSelectSuccess, onFileSelectError }) => {
             }
         })
         .then(response => {
-            // Handle response
             onFileSelectSuccess(selectedFile);
         })
         .catch(error => {
