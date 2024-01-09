@@ -1,48 +1,26 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 
-const MainPage = () => {
+const MainPage = ({ location }) => {
   const chartRef = useRef(null);
+  const categorizedData = location.state ? location.state.categorizedData : [];
 
-  // Dummy data for the pie chart
   const pieChartData = {
-    labels: ["Food", "Clothes", "Shopping", "Bills"],
+    labels: categorizedData.map((transaction) => transaction.Category),
     datasets: [
       {
-        data: [200, 150, 100, 50],
-        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"],
-        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"],
+        data: categorizedData.map((transaction) => transaction.Summa),
+        // Define colors and hover colors as needed
       },
     ],
   };
 
-  // Dummy data for the list of purchases
-  const purchaseData = [
-    {
-      title: "Groceries",
-      date: "January 5, 2024",
-      price: "$200",
-      category: "Food",
-    },
-    {
-      title: "New Clothes",
-      date: "January 8, 2024",
-      price: "$150",
-      category: "Clothes",
-    },
-    {
-      title: "Electronics",
-      date: "January 15, 2024",
-      price: "$100",
-      category: "Shopping",
-    },
-    {
-      title: "Utility Bills",
-      date: "January 20, 2024",
-      price: "$50",
-      category: "Bills",
-    },
-  ];
+  const purchaseData = categorizedData.map((transaction) => ({
+    title: transaction.Category,
+    date: transaction.Maksupäivä,
+    price: transaction.Summa,
+    category: transaction.Category,
+  }));
 
   useEffect(() => {
     // Create the pie chart when the component mounts

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FileUploader from "../components/FileUploader";
+import MainPage from "./MainPage";
 
 const WelcomePage = () => {
     const navigate = useNavigate();
@@ -9,7 +10,8 @@ const WelcomePage = () => {
     const onFileUpload = (uploadedFile) => {
         setFile(uploadedFile);
         // Process the file here (e.g., sending it to the backend)
-        navigate('/main'); // Redirect to MainPage after processing
+        const categorizedData = [];
+        navigate('/main', { state: { categorizedData } }); // Redirect to MainPage after processing
     };
 
     const onFileUploadError = (errorMessage) => {
