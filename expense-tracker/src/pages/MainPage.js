@@ -91,13 +91,25 @@ const MainPage = () => {
     },
   ];
 
+  const colors = {
+    "Housing": "#FF6384",
+    "Utilities": "#36A2EB",
+    "Groceries": "#FFCE56",
+    "Transportation": "#FD6B19",
+    "Dining": "#4BC0C0",
+    "Entertainment": "#9966FF",
+    "Gifts": "#C9CBCF",
+    "Health": "#7ACB77",
+    "Personal Care": "#FAA75A"
+  };
+
   const pieChartData = {
     labels: categorizedData.map((transaction) => transaction.category),
     datasets: [
       {
         data: categorizedData.map((transaction) => transaction.price),
-        backgroundColor: ["#ff6384", "#36a2eb"], // Example colors for each slice
-        hoverBackgroundColor: ["#ff6384", "#36a2eb"], // Hover colors for each slice
+        backgroundColor: categorizedData.map((transaction) => colors[transaction.category] || "#E7E9ED"), // Default color if category is not in the colors object
+        hoverBackgroundColor: categorizedData.map((transaction) => colors[transaction.category] || "#D1D2D4"), // Slightly darker for hover state
       },
     ],
   };
