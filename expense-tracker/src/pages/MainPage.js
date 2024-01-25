@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import Chart from "chart.js/auto"; // Ensure this import is correct based on your Chart.js version
+import Chart from "chart.js/auto";
 
 const MainPage = () => {
   const chartRef = useRef(null);
@@ -8,130 +8,142 @@ const MainPage = () => {
     {
       title: "Home",
       date: new Date("2023-12-01T08:30:00"),
-      price: 1200, // Monthly rent or mortgage payment
+      price: 1200,
       category: "Housing",
     },
     {
       title: "Electricity Bill",
       date: new Date("2023-12-03T10:00:00"),
-      price: 70, // Monthly electricity bill
+      price: 70,
       category: "Utilities",
     },
     {
       title: "Water Bill",
       date: new Date("2023-12-05T09:20:00"),
-      price: 30, // Monthly water bill
+      price: 30,
       category: "Utilities",
     },
     {
       title: "Groceries",
       date: new Date("2023-12-06T15:45:00"),
-      price: 150, // Weekly grocery shopping
+      price: 150,
       category: "Groceries",
     },
     {
       title: "Gas",
       date: new Date("2023-12-08T12:00:00"),
-      price: 40, // Gasoline for car
+      price: 40,
       category: "Transportation",
     },
     {
       title: "Dining Out",
       date: new Date("2023-12-10T19:30:00"),
-      price: 60, // Dinner at a restaurant
+      price: 60,
       category: "Dining",
     },
     {
       title: "Movie Night",
       date: new Date("2023-12-13T20:00:00"),
-      price: 25, // Movie tickets
+      price: 25,
       category: "Entertainment",
     },
     {
       title: "Flowers",
       date: new Date("2023-12-15T14:00:00"),
-      price: 50, // Buying flowers for a special occasion
+      price: 50,
       category: "Gifts",
     },
     {
       title: "Internet Bill",
       date: new Date("2023-12-17T10:00:00"),
-      price: 50, // Monthly internet bill
+      price: 50,
       category: "Utilities",
     },
     {
       title: "Mobile Bill",
       date: new Date("2023-12-20T11:00:00"),
-      price: 60, // Monthly mobile phone bill
+      price: 60,
       category: "Utilities",
     },
     {
       title: "Gym Membership",
       date: new Date("2023-12-22T09:00:00"),
-      price: 30, // Monthly gym membership fee
+      price: 30,
       category: "Health",
     },
     {
       title: "Haircut",
       date: new Date("2023-12-25T13:00:00"),
-      price: 25, // Haircut at a salon
+      price: 25,
       category: "Personal Care",
     },
     {
       title: "Groceries",
       date: new Date("2023-12-27T16:00:00"),
-      price: 150, // Another round of grocery shopping
+      price: 150,
       category: "Groceries",
     },
     {
       title: "New Year's Party Supplies",
       date: new Date("2023-12-30T17:30:00"),
-      price: 85, // Supplies for hosting a New Year's party
+      price: 85,
       category: "Entertainment",
     },
   ];
 
-  const colors = {
-    "Housing": "#FF6384",
-    "Utilities": "#36A2EB",
-    "Groceries": "#FFCE56",
-    "Transportation": "#FD6B19",
-    "Dining": "#4BC0C0",
-    "Entertainment": "#9966FF",
-    "Gifts": "#C9CBCF",
-    "Health": "#7ACB77",
-    "Personal Care": "#FAA75A"
-  };
+const categorySums = categorizedData.reduce((acc, { category, price }) => {
+  acc[category] = (acc[category] || 0) + price;
+  return acc;
+}, {});
 
-  const pieChartData = {
-    labels: categorizedData.map((transaction) => transaction.category),
-    datasets: [
-      {
-        data: categorizedData.map((transaction) => transaction.price),
-        backgroundColor: categorizedData.map((transaction) => colors[transaction.category] || "#E7E9ED"), // Default color if category is not in the colors object
-        hoverBackgroundColor: categorizedData.map((transaction) => colors[transaction.category] || "#D1D2D4"), // Slightly darker for hover state
-      },
-    ],
-  };
+
+const aggregatedData = Object.entries(categorySums).map(([category, price]) => ({
+  category,
+  price
+}));
+
+const colors = {
+  "Housing": "#FF6384",
+  "Utilities": "#36A2EB",
+  "Groceries": "#FFCE56",
+  "Transportation": "#FD6B19",
+  "Dining": "#4BC0C0",
+  "Entertainment": "#9966FF",
+  "Gifts": "#C9CBCF",
+  "Health": "#7ACB77",
+  "Personal Care": "#FAA75A"
+};
+
+// Generate the pie chart data using the aggregated data
+const pieChartData = {
+  labels: aggregatedData.map((data) => data.category),
+  datasets: [
+    {
+      data: aggregatedData.map((data) => data.price),
+      backgroundColor: aggregatedData.map((data) => colors[data.category] || "#E7E9ED"),
+      hoverBackgroundColor: aggregatedData.map((data) => colors[data.category] || "#D1D2D4"),
+    },
+  ],
+};
 
   useEffect(() => {
     if (chartRef.current) {
       const myChart = new Chart(chartRef.current, {
         type: "pie",
         data: pieChartData,
-        options: {}, // Add chart options as needed
+        options: {},
       });
     }
 
     return () => {
       if (chartRef.current) {
-        const chartInstance = Chart.getChart(chartRef.current); // Ensure this method is compatible with your Chart.js version
+        const chartInstance = Chart.getChart(chartRef.current);
         if (chartInstance) {
           chartInstance.destroy();
         }
       }
     };
-  }, [pieChartData]); // Add pieChartData as a dependency to ensure the chart updates when data changes
+  }, [pieChartData]);
 
   return (
     <div className="bg-gray-100 min-h-screen p-8">
@@ -182,7 +194,6 @@ const MainPage = () => {
               <p className="flex-1">
                 {purchase.date.toLocaleDateString()}
               </p>{" "}
-              {/* Format date */}
               <p className="flex-1">{purchase.category}</p>
               <p className="flex-1">${purchase.price}</p>
             </li>
