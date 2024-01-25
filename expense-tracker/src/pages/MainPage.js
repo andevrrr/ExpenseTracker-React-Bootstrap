@@ -91,40 +91,45 @@ const MainPage = () => {
     },
   ];
 
-const categorySums = categorizedData.reduce((acc, { category, price }) => {
-  acc[category] = (acc[category] || 0) + price;
-  return acc;
-}, {});
+  const categorySums = categorizedData.reduce((acc, { category, price }) => {
+    acc[category] = (acc[category] || 0) + price;
+    return acc;
+  }, {});
 
+  const aggregatedData = Object.entries(categorySums).map(
+    ([category, price]) => ({
+      category,
+      price,
+    })
+  );
 
-const aggregatedData = Object.entries(categorySums).map(([category, price]) => ({
-  category,
-  price
-}));
+  const colors = {
+    Housing: "#FF6384",
+    Utilities: "#36A2EB",
+    Groceries: "#FFCE56",
+    Transportation: "#FD6B19",
+    Dining: "#4BC0C0",
+    Entertainment: "#9966FF",
+    Gifts: "#C9CBCF",
+    Health: "#7ACB77",
+    "Personal Care": "#FAA75A",
+  };
 
-const colors = {
-  "Housing": "#FF6384",
-  "Utilities": "#36A2EB",
-  "Groceries": "#FFCE56",
-  "Transportation": "#FD6B19",
-  "Dining": "#4BC0C0",
-  "Entertainment": "#9966FF",
-  "Gifts": "#C9CBCF",
-  "Health": "#7ACB77",
-  "Personal Care": "#FAA75A"
-};
-
-// Generate the pie chart data using the aggregated data
-const pieChartData = {
-  labels: aggregatedData.map((data) => data.category),
-  datasets: [
-    {
-      data: aggregatedData.map((data) => data.price),
-      backgroundColor: aggregatedData.map((data) => colors[data.category] || "#E7E9ED"),
-      hoverBackgroundColor: aggregatedData.map((data) => colors[data.category] || "#D1D2D4"),
-    },
-  ],
-};
+  // Generate the pie chart data using the aggregated data
+  const pieChartData = {
+    labels: aggregatedData.map((data) => data.category),
+    datasets: [
+      {
+        data: aggregatedData.map((data) => data.price),
+        backgroundColor: aggregatedData.map(
+          (data) => colors[data.category] || "#E7E9ED"
+        ),
+        hoverBackgroundColor: aggregatedData.map(
+          (data) => colors[data.category] || "#D1D2D4"
+        ),
+      },
+    ],
+  };
 
   useEffect(() => {
     if (chartRef.current) {
@@ -154,26 +159,34 @@ const pieChartData = {
         <div className="w-auto bg-white p-6 rounded-lg shadow-lg">
           <canvas ref={chartRef}></canvas>
         </div>
-        <div className="">
+        <div className="ml-5">
           <ul className="flex flex-wrap">
             {pieChartData.labels.map((category, index) => (
               <li
                 key={category}
-                className="p-8 rounded-lg m-2 text-center"
+                className="p-2 rounded-lg m-2 text-center"
                 style={{
                   backgroundColor:
                     pieChartData.datasets[0].backgroundColor[index],
                   flexBasis: "calc(50% - 1rem)",
-                  maxWidth: "calc(50% - 1rem)",
+                  maxWidth: "calc(30% - 1rem)",
                 }}
               >
-                <p className="text-3xl">{category}</p>
-                <p className="text-xl mt-3">
+                <p className="text-base text-white">{category}</p>
+                <p className="text-sm mt-3 text-white">
                   ${pieChartData.datasets[0].data[index]}
                 </p>
               </li>
             ))}
           </ul>
+          <p
+            style={{
+              backgroundColor: "#D1D2D4",
+            }}
+            className="p-2 rounded-lg m-2 text-center text-lg"
+          >
+            Total: 3000€
+          </p>
         </div>
       </div>
       <div className="mt-8">
