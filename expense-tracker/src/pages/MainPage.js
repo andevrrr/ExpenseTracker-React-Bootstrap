@@ -91,6 +91,8 @@ const MainPage = () => {
     },
   ];
 
+  const sumOfPrices = categorizedData.reduce((total, item) => total + item.price, 0);
+
   const categorySums = categorizedData.reduce((acc, { category, price }) => {
     acc[category] = (acc[category] || 0) + price;
     return acc;
@@ -185,7 +187,7 @@ const MainPage = () => {
             }}
             className="p-2 rounded-lg m-2 text-center text-lg"
           >
-            Total: 3000€
+            Total: {sumOfPrices}€
           </p>
         </div>
       </div>
