@@ -1,14 +1,17 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 
 const MainPage = () => {
   const chartRef = useRef(null);
+  const [currentCategory, setCurrentCategory] = useState("All");
+
+  console.log(currentCategory);
 
   const categorizedData = [
     {
       title: "Home",
       date: new Date("2023-12-01T08:30:00"),
-      price: 1200,
+      price: 625,
       category: "Housing",
     },
     {
@@ -173,6 +176,7 @@ const MainPage = () => {
                   flexBasis: "calc(50% - 1rem)",
                   maxWidth: "calc(30% - 1rem)",
                 }}
+                onClick={() => setCurrentCategory(category)}
               >
                 <p className="text-base text-white">{category}</p>
                 <p className="text-sm mt-3 text-white">
@@ -186,6 +190,7 @@ const MainPage = () => {
               backgroundColor: "#D1D2D4",
             }}
             className="p-2 rounded-lg m-2 text-center text-lg"
+            onClick={() => setCurrentCategory("All")}
           >
             Total: {sumOfPrices}€
           </p>
@@ -200,7 +205,9 @@ const MainPage = () => {
             <p className="flex-1">Category</p>
             <p className="flex-1">Price</p>
           </li>
-          {categorizedData.map((purchase, index) => (
+          {categorizedData
+          .filter(purchase => currentCategory === "All" || purchase.category === currentCategory)
+          .map((purchase, index) => (
             <li
               key={index}
               className="text-lg mb-2 flex items-center justify-between"
