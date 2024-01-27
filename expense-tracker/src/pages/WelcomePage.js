@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FileUploader from "../components/FileUploader";
-import MainPage from "./MainPage";
 
 const WelcomePage = () => {
   const navigate = useNavigate();

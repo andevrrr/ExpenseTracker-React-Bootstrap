@@ -1,86 +1,114 @@
 [
     {
-      "title": "Home",
-      "date": "2023-12-01T08:30:00Z",
-      "price": 625,
-      "category": "Housing"
-    },
-    {
-      "title": "Electricity Bill",
-      "date": "2023-12-03T10:00:00Z",
-      "price": 70,
-      "category": "Utilities"
-    },
-    {
-      "title": "Water Bill",
-      "date": "2023-12-05T09:20:00Z",
-      "price": 30,
-      "category": "Utilities"
-    },
-    {
-      "title": "Groceries",
-      "date": "2023-12-06T15:45:00Z",
-      "price": 150,
-      "category": "Groceries"
-    },
-    {
-      "title": "Gas",
-      "date": "2023-12-08T12:00:00Z",
-      "price": 40,
+      "paymentDate": "2023-11-27",
+      "businessName": "ANTON KUCHERENKO",
+      "payer": "Prisma Hämeenkatu Tampere",
+      "amount": "1000",
+      "transactionType": "KÄTEISTALLETUS KORTILLA",
       "category": "Transportation"
     },
     {
-      "title": "Dining Out",
-      "date": "2023-12-10T19:30:00Z",
-      "price": 60,
-      "category": "Dining"
-    },
-    {
-      "title": "Movie Night",
-      "date": "2023-12-13T20:00:00Z",
-      "price": 25,
-      "category": "Entertainment"
-    },
-    {
-      "title": "Flowers",
-      "date": "2023-12-15T14:00:00Z",
-      "price": 50,
-      "category": "Gifts"
-    },
-    {
-      "title": "Internet Bill",
-      "date": "2023-12-17T10:00:00Z",
-      "price": 50,
-      "category": "Utilities"
-    },
-    {
-      "title": "Mobile Bill",
-      "date": "2023-12-20T11:00:00Z",
-      "price": 60,
-      "category": "Utilities"
-    },
-    {
-      "title": "Gym Membership",
-      "date": "2023-12-22T09:00:00Z",
-      "price": 30,
-      "category": "Health"
-    },
-    {
-      "title": "Haircut",
-      "date": "2023-12-25T13:00:00Z",
-      "price": 25,
-      "category": "Personal Care"
-    },
-    {
-      "title": "Groceries",
-      "date": "2023-12-27T16:00:00Z",
-      "price": 150,
+      "paymentDate": "2023-11-27",
+      "businessName": "TELIA FINLAND OYJ",
+      "payer": "ANTON KUCHERENKO",
+      "amount": "15.03",
+      "transactionType": "TILISIIRTO",
       "category": "Groceries"
     },
     {
-      "title": "New Year's Party Supplies",
-      "date": "2023-12-30T17:30:00Z",
-      "price": 85,
-      "category": "Entertainment"
+      "paymentDate": "2023-11-27",
+      "businessName": "TELIA FINLAND OYJ",
+      "payer": "ANTON KUCHERENKO",
+      "amount": "29.76",
+      "transactionType": "TILISIIRTO",
+      "category": "Subscriptions and Memberships"
+    },
+    {
+      "paymentDate": "2023-11-25",
+      "businessName": "Yango",
+      "payer": "ANTON KUCHERENKO",
+      "amount": "5.5",
+      "transactionType": "KORTTIOSTO",
+      "category": "Transportation"
+    },
+    {
+      "paymentDate": "2023-11-21",
+      "businessName": "TELIA FINLAND OYJ",
+      "payer": "ANTON KUCHERENKO",
+      "amount": "14.99",
+      "transactionType": "TILISIIRTO",
+      "category": "Utilities"
+    },
+    {
+      "paymentDate": "2023-11-13",
+      "businessName": "Anton Kucherenko",
+      "payer": "GUSARINA SOFIIA",
+      "amount": "14",
+      "transactionType": "TILISIIRTO",
+      "category": "Transfers"
+    },
+    {
+      "paymentDate": "2023-11-6",
+      "businessName": "X-Group Asunnot Oy, vuokrat",
+      "payer": "KUCHERENKO ANTON",
+      "amount": "625",
+      "transactionType": "E-LASKU",
+      "category": "Housing and Leasing"
+    },
+    {
+      "paymentDate": "2023-11-6",
+      "businessName": "GoGo Liikuntakeskus Oy",
+      "payer": "KUCHERENKO ANTON",
+      "amount": "60",
+      "transactionType": "E-LASKU",
+      "category": "Fitness"
+    },
+    {
+      "paymentDate": "2023-11-3",
+      "businessName": "K-Supermarket Hameenkatu",
+      "payer": "ANTON KUCHERENKO",
+      "amount": "0.24",
+      "transactionType": "KORTTIOSTO",
+      "category": "Groceries"
+    },
+    {
+      "paymentDate": "2023-11-3",
+      "businessName": "K-Supermarket Hameenkatu",
+      "payer": "ANTON KUCHERENKO",
+      "amount": "40.53",
+      "transactionType": "KORTTIOSTO",
+      "category": "Groceries"
+    },
+    {
+      "paymentDate": "2023-11-2",
+      "businessName": "AWS EMEA",
+      "payer": "ANTON KUCHERENKO",
+      "amount": "2.88",
+      "transactionType": "KORTTIOSTO",
+      "category": "Groceries"
+    },
+    {
+      "paymentDate": "2023-11-2",
+      "businessName": "APPLE.COM/BILL",
+      "payer": "ANTON KUCHERENKO",
+      "amount": "9.99",
+      "transactionType": "KORTTIOSTO",
+      "category": "Services"
+    },
+    {
+      "paymentDate": "2023-11-1",
+      "businessName": "Anton Kucherenko",
+      "payer": "MobilePay Walid Lachhab",
+      "amount": "70",
+      "transactionType": "TILISIIRTO",
+      "category": "Transportation"
+    },
+    {
+      "paymentDate": "2023-11-1",
+      "businessName": "Anton Kucherenko",
+      "payer": "MobilePay Walid Lachhab",
+      "amount": "9",
+      "transactionType": "TILISIIRTO",
+      "category": "Transfers"
     }
   ]
