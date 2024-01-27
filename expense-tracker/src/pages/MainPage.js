@@ -142,9 +142,17 @@ const MainPage = () => {
   useEffect(() => {
     if (chartRef.current) {
       const myChart = new Chart(chartRef.current, {
-        type: "pie",
+        type: "doughnut",
         data: pieChartData,
-        options: {},
+        options: {
+          plugins: {
+            legend: {
+              display: false, // This hides the labels
+            },
+          },
+          responsive: true,
+          maintainAspectRatio: false,
+        },
       });
     }
 
@@ -165,7 +173,7 @@ const MainPage = () => {
       </div>
       <div className="flex justify-evenly items-center my-12">
         <div className="w-auto bg-white p-6 rounded-lg shadow-lg">
-          <canvas ref={chartRef}></canvas>
+          <canvas ref={chartRef} style={{ width: "400px" }}></canvas>
         </div>
         <div className="ml-5">
           <ul className="flex flex-wrap">
