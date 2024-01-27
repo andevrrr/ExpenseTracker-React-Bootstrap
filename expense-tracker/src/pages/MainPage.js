@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 import "./style.css";
-import { FiEdit } from 'react-icons/fi';
+import { FiEdit } from "react-icons/fi";
 
 const MainPage = () => {
   const chartRef = useRef(null);
   const [currentCategory, setCurrentCategory] = useState("All");
-
-  console.log(currentCategory);
+  const [showEditPopup, setShowEditPopup] = useState(false);
+  const [selectedPurchase, setSelectedPurchase] = useState(null);
 
   const categorizedData = [
     {
@@ -96,6 +96,45 @@ const MainPage = () => {
     },
   ];
 
+  const handleEditClick = (purchase) => {
+    setSelectedPurchase(purchase);
+    setShowEditPopup(true);
+  };
+
+  const EditCategoryPopup = ({
+    onClose,
+    onSave,
+    categories,
+    selectedPurchase,
+  }) => (
+    <div className="popup">
+      <select
+        defaultValue={selectedPurchase.category}
+        onChange={(e) => onSave(e.target.value, selectedPurchase)}
+      >
+        {categories.map((category, index) => (
+          <option key={index} value={category}>
+            {category}
+          </option>
+        ))}
+      </select>
+      <button onClick={onClose}>Close</button>
+    </div>
+  );
+
+  const handleSaveCategory = (newCategory, purchaseToUpdate) => {
+    const updatedData = categorizedData.map((purchase) => {
+      if (purchase === purchaseToUpdate) {
+        return { ...purchase, category: newCategory };
+      }
+      return purchase;
+    });
+    // Update your state or data source with updatedData here
+    setShowEditPopup(false);
+  };
+
+  const categories = [...new Set(categorizedData.map((item) => item.category))];
+
   const sumOfPrices = categorizedData.reduce(
     (total, item) => total + item.price,
     0
@@ -170,6 +209,15 @@ const MainPage = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen p-8">
+      {showEditPopup && selectedPurchase && (
+        <EditCategoryPopup
+          categories={categories}
+          selectedPurchase={selectedPurchase}
+          onClose={() => setShowEditPopup(false)}
+          onSave={handleSaveCategory}
+        />
+      )}
+
       <div className="text-center mb-4">
         <h1 className="text-4xl font-bold">January</h1>
       </div>
@@ -249,7 +297,10 @@ const MainPage = () => {
                 <p className="flex-1">
                   {purchase.date.toLocaleDateString()}
                 </p>{" "}
-                <p className="flex-1">{purchase.category}</p>
+                <div className="flex-1 flex items-center">
+                  <span className="mr-2">{purchase.category}</span>
+                  <FiEdit onClick={() => handleEditClick(purchase)} />
+                </div>
                 <p className="flex-1">${purchase.price}</p>
               </li>
             ))}
