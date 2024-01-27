@@ -63,8 +63,23 @@ const MainPage = () => {
 
   const categories = [...new Set(categorizedData.map((item) => item.category))];
 
-  const sumOfPrices = categorizedData.reduce(
-    (total, item) => total + Number(item.amount),
+  const totalSumSpent = categorizedData.reduce(
+    (total, item) => {
+      if (Number(item.amount) < 0) {
+        return total + Math.abs(Number(item.amount)); // Convert to positive and add to total
+      }
+      return total;
+    },
+    0
+  );
+
+  const totalSumReceived = categorizedData.reduce(
+    (total, item) => {
+      if (Number(item.amount) >= 0) {
+        return total + Number(item.amount);
+      }
+      return total;
+    },
     0
   );
 
@@ -206,23 +221,43 @@ const MainPage = () => {
               </li>
             ))}
           </ul>
-          <p
-            style={{
-              backgroundColor: "#D1D2D4",
-              cursor: "pointer",
-              transition: "background-color 0.3s ease",
-            }}
-            className="p-2 rounded-lg m-2 text-center text-lg"
-            onClick={() => setCurrentCategory("All")}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor = "#BCC0C4")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.backgroundColor = "#D1D2D4")
-            }
-          >
-            Total: {sumOfPrices}€
-          </p>
+          <div className="flex justify-between items-center mt-4">
+            <p
+              style={{
+                backgroundColor: "#D1D2D4",
+                cursor: "pointer",
+                transition: "background-color 0.3s ease",
+              }}
+              className="p-2 rounded-lg text-center text-lg flex-1 mr-2"
+              onClick={() => setCurrentCategory("All")}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor = "#BCC0C4")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor = "#D1D2D4")
+              }
+            >
+              Total Amount Spent: {totalSumSpent}€
+            </p>
+            <p
+              style={{
+                backgroundColor: "#D1D2D4",
+                cursor: "pointer",
+                transition: "background-color 0.3s ease",
+              }}
+              className="p-2 rounded-lg text-center text-lg flex-1 ml-2"
+              onClick={() => setCurrentCategory("All")}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor = "#BCC0C4")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor = "#D1D2D4")
+              }
+            >
+              Total Amount Received: {totalSumReceived}€
+              {/* Update this with the correct variable for received amount */}
+            </p>
+          </div>
         </div>
       </div>
       <div className="mt-8">
