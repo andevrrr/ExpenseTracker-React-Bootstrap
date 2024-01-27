@@ -175,7 +175,7 @@ const MainPage = () => {
         <div className="w-auto bg-white p-6 rounded-lg shadow-lg">
           <canvas ref={chartRef} style={{ width: "400px" }}></canvas>
         </div>
-        <div className="ml-5">
+        <div className="ml-5 w-auto bg-white p-6 rounded-lg shadow-lg">
           <ul className="flex flex-wrap">
             {pieChartData.labels.map((category, index) => (
               <li
