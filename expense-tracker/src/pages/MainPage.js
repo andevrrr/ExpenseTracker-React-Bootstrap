@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 import "./style.css";
 import { FiEdit } from "react-icons/fi";
+import data from "../utils/data.json";
 
 const MainPage = () => {
   const chartRef = useRef(null);
@@ -9,94 +10,15 @@ const MainPage = () => {
   const [showEditPopup, setShowEditPopup] = useState(false);
   const [selectedPurchase, setSelectedPurchase] = useState(null);
 
-  const categorizedData = [
-    {
-      title: "Home",
-      date: new Date("2023-12-01T08:30:00"),
-      price: 625,
-      category: "Housing",
-    },
-    {
-      title: "Electricity Bill",
-      date: new Date("2023-12-03T10:00:00"),
-      price: 70,
-      category: "Utilities",
-    },
-    {
-      title: "Water Bill",
-      date: new Date("2023-12-05T09:20:00"),
-      price: 30,
-      category: "Utilities",
-    },
-    {
-      title: "Groceries",
-      date: new Date("2023-12-06T15:45:00"),
-      price: 150,
-      category: "Groceries",
-    },
-    {
-      title: "Gas",
-      date: new Date("2023-12-08T12:00:00"),
-      price: 40,
-      category: "Transportation",
-    },
-    {
-      title: "Dining Out",
-      date: new Date("2023-12-10T19:30:00"),
-      price: 60,
-      category: "Dining",
-    },
-    {
-      title: "Movie Night",
-      date: new Date("2023-12-13T20:00:00"),
-      price: 25,
-      category: "Entertainment",
-    },
-    {
-      title: "Flowers",
-      date: new Date("2023-12-15T14:00:00"),
-      price: 50,
-      category: "Gifts",
-    },
-    {
-      title: "Internet Bill",
-      date: new Date("2023-12-17T10:00:00"),
-      price: 50,
-      category: "Utilities",
-    },
-    {
-      title: "Mobile Bill",
-      date: new Date("2023-12-20T11:00:00"),
-      price: 60,
-      category: "Utilities",
-    },
-    {
-      title: "Gym Membership",
-      date: new Date("2023-12-22T09:00:00"),
-      price: 30,
-      category: "Health",
-    },
-    {
-      title: "Haircut",
-      date: new Date("2023-12-25T13:00:00"),
-      price: 25,
-      category: "Personal Care",
-    },
-    {
-      title: "Groceries",
-      date: new Date("2023-12-27T16:00:00"),
-      price: 150,
-      category: "Groceries",
-    },
-    {
-      title: "New Year's Party Supplies",
-      date: new Date("2023-12-30T17:30:00"),
-      price: 85,
-      category: "Entertainment",
-    },
-  ];
+  const [categorizedData, setCategorizedData] = useState(
+    data.map((item) => ({
+      ...item,
+      date: new Date(item.date),
+    }))
+  );
 
   const handleEditClick = (purchase) => {
+    console.log(purchase);
     setSelectedPurchase(purchase);
     setShowEditPopup(true);
   };
@@ -124,12 +46,16 @@ const MainPage = () => {
 
   const handleSaveCategory = (newCategory, purchaseToUpdate) => {
     const updatedData = categorizedData.map((purchase) => {
-      if (purchase === purchaseToUpdate) {
+      const isSamePurchase =
+        purchase.title === purchaseToUpdate.title &&
+        purchase.date.getTime() === new Date(purchaseToUpdate.date).getTime();
+      if (isSamePurchase) {
         return { ...purchase, category: newCategory };
       }
       return purchase;
     });
-    // Update your state or data source with updatedData here
+
+    setCategorizedData(updatedData);
     setShowEditPopup(false);
   };
 
