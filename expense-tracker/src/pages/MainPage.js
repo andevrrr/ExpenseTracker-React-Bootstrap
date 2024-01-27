@@ -201,9 +201,17 @@ const MainPage = () => {
           <p
             style={{
               backgroundColor: "#D1D2D4",
+              cursor: "pointer",
+              transition: "background-color 0.3s ease",
             }}
             className="p-2 rounded-lg m-2 text-center text-lg"
             onClick={() => setCurrentCategory("All")}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor = "#BCC0C4")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor = "#D1D2D4")
+            }
           >
             Total: {sumOfPrices}€
           </p>
