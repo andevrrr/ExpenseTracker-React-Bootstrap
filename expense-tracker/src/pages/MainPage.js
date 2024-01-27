@@ -9,14 +9,36 @@ const MainPage = () => {
   const [currentCategory, setCurrentCategory] = useState("All");
   const [showEditPopup, setShowEditPopup] = useState(false);
   const [selectedPurchase, setSelectedPurchase] = useState(null);
+  const [categorizedData, setCategorizedData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const [categorizedData, setCategorizedData] = useState(
-    data.map((item) => ({
-      ...item,
-      date: new Date(item.paymentDate),
-      amount: Number(item.amount),
-    }))
-  );
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch("http://localhost:3000/get");
+        if (!response.ok) {
+          throw new Error("Data could not be fetched!");
+        }
+        const data = await response.json();
+        console.log(data);
+        setCategorizedData(
+          data.map((item) => ({
+            ...item,
+            date: new Date(item.paymentDate),
+            amount: Number(item.amount),
+          }))
+        );
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleEditClick = (purchase) => {
     console.log(purchase);
@@ -63,25 +85,19 @@ const MainPage = () => {
 
   const categories = [...new Set(categorizedData.map((item) => item.category))];
 
-  const totalSumSpent = categorizedData.reduce(
-    (total, item) => {
-      if (Number(item.amount) < 0) {
-        return total + Math.abs(Number(item.amount)); // Convert to positive and add to total
-      }
-      return total;
-    },
-    0
-  );
+  const totalSumSpent = categorizedData.reduce((total, item) => {
+    if (Number(item.amount) < 0) {
+      return total + Math.abs(Number(item.amount)); // Convert to positive and add to total
+    }
+    return total;
+  }, 0);
 
-  const totalSumReceived = categorizedData.reduce(
-    (total, item) => {
-      if (Number(item.amount) >= 0) {
-        return total + Number(item.amount);
-      }
-      return total;
-    },
-    0
-  );
+  const totalSumReceived = categorizedData.reduce((total, item) => {
+    if (Number(item.amount) >= 0) {
+      return total + Number(item.amount);
+    }
+    return total;
+  }, 0);
 
   const categorySums = categorizedData.reduce((acc, { category, amount }) => {
     acc[category] = (acc[category] || 0) + amount;
@@ -173,6 +189,9 @@ const MainPage = () => {
       }
     };
   }, [pieChartData]);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="bg-gray-100 min-h-screen p-8">
