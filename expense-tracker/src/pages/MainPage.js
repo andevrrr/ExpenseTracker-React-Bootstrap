@@ -94,7 +94,10 @@ const MainPage = () => {
     },
   ];
 
-  const sumOfPrices = categorizedData.reduce((total, item) => total + item.price, 0);
+  const sumOfPrices = categorizedData.reduce(
+    (total, item) => total + item.price,
+    0
+  );
 
   const categorySums = categorizedData.reduce((acc, { category, price }) => {
     acc[category] = (acc[category] || 0) + price;
@@ -109,15 +112,15 @@ const MainPage = () => {
   );
 
   const colors = {
-    Housing: "#FF6384",
-    Utilities: "#36A2EB",
-    Groceries: "#FFCE56",
-    Transportation: "#FD6B19",
-    Dining: "#4BC0C0",
-    Entertainment: "#9966FF",
-    Gifts: "#C9CBCF",
-    Health: "#7ACB77",
-    "Personal Care": "#FAA75A",
+    Housing: { base: "#FF6384", hover: "#D9536F" },
+    Utilities: { base: "#36A2EB", hover: "#2A91D8" },
+    Groceries: { base: "#FFCE56", hover: "#E6B84D" },
+    Transportation: { base: "#FD6B19", hover: "#D25516" },
+    Dining: { base: "#4BC0C0", hover: "#3DA6A6" },
+    Entertainment: { base: "#9966FF", hover: "#8055E2" },
+    Gifts: { base: "#C9CBCF", hover: "#AEB0B4" },
+    Health: { base: "#7ACB77", hover: "#68B468" },
+    "Personal Care": { base: "#FAA75A", hover: "#E0954F" },
   };
 
   // Generate the pie chart data using the aggregated data
@@ -127,10 +130,10 @@ const MainPage = () => {
       {
         data: aggregatedData.map((data) => data.price),
         backgroundColor: aggregatedData.map(
-          (data) => colors[data.category] || "#E7E9ED"
+          (data) => colors[data.category].base || "#E7E9ED"
         ),
         hoverBackgroundColor: aggregatedData.map(
-          (data) => colors[data.category] || "#D1D2D4"
+          (data) => colors[data.category].hover || "#D1D2D4"
         ),
       },
     ],
@@ -175,7 +178,17 @@ const MainPage = () => {
                     pieChartData.datasets[0].backgroundColor[index],
                   flexBasis: "calc(50% - 1rem)",
                   maxWidth: "calc(30% - 1rem)",
+                  cursor: "pointer",
+                  transition: "background-color 0.3s ease",
                 }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor =
+                    pieChartData.datasets[0].hoverBackgroundColor[index])
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor =
+                    pieChartData.datasets[0].backgroundColor[index])
+                }
                 onClick={() => setCurrentCategory(category)}
               >
                 <p className="text-base text-white">{category}</p>
@@ -206,20 +219,24 @@ const MainPage = () => {
             <p className="flex-1">Price</p>
           </li>
           {categorizedData
-          .filter(purchase => currentCategory === "All" || purchase.category === currentCategory)
-          .map((purchase, index) => (
-            <li
-              key={index}
-              className="text-lg mb-2 flex items-center justify-between"
-            >
-              <p className="flex-1">{purchase.title}</p>
-              <p className="flex-1">
-                {purchase.date.toLocaleDateString()}
-              </p>{" "}
-              <p className="flex-1">{purchase.category}</p>
-              <p className="flex-1">${purchase.price}</p>
-            </li>
-          ))}
+            .filter(
+              (purchase) =>
+                currentCategory === "All" ||
+                purchase.category === currentCategory
+            )
+            .map((purchase, index) => (
+              <li
+                key={index}
+                className="text-lg mb-2 flex items-center justify-between"
+              >
+                <p className="flex-1">{purchase.title}</p>
+                <p className="flex-1">
+                  {purchase.date.toLocaleDateString()}
+                </p>{" "}
+                <p className="flex-1">{purchase.category}</p>
+                <p className="flex-1">${purchase.price}</p>
+              </li>
+            ))}
         </ul>
       </div>
     </div>
