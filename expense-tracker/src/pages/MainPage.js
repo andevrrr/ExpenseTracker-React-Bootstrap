@@ -113,7 +113,7 @@ const MainPage = () => {
     Music: { base: "#FD6B19", hover: "#FF4500" },
     Sports: { base: "#4BC0C0", hover: "#40E0D0" },
     Outdoor: { base: "#9966FF", hover: "#8A2BE2" },
-    Else: { base: "#C9CBCF", hover: "#B0C4DE" },
+    Other: { base: "#C9CBCF", hover: "#B0C4DE" },
   };
 
   // Generate the pie chart data using the aggregated data
@@ -201,7 +201,7 @@ const MainPage = () => {
               >
                 <p className="text-base text-white">{category}</p>
                 <p className="text-sm mt-3 text-white">
-                  ${pieChartData.datasets[0].data[index]}
+                  {pieChartData.datasets[0].data[index]}€
                 </p>
               </li>
             ))}
@@ -255,7 +255,7 @@ const MainPage = () => {
                   <span className="mr-2">{purchase.category}</span>
                   <FiEdit onClick={() => handleEditClick(purchase)} />
                 </div>
-                <p className="flex-1">${purchase.amount}</p>
+                <p className="flex-1">{purchase.amount}€</p>
               </li>
             ))}
         </ul>
