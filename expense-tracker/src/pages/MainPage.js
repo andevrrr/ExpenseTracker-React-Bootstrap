@@ -68,15 +68,15 @@ const MainPage = () => {
     0
   );
 
-  const categorySums = categorizedData.reduce((acc, { category, price }) => {
-    acc[category] = (acc[category] || 0) + price;
+  const categorySums = categorizedData.reduce((acc, { category, amount }) => {
+    acc[category] = (acc[category] || 0) + amount;
     return acc;
   }, {});
 
   const aggregatedData = Object.entries(categorySums).map(
-    ([category, price]) => ({
+    ([category, amount]) => ({
       category,
-      price,
+      amount,
     })
   );
 
