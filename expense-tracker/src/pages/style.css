@@ -1,0 +1,29 @@
+/* Styling for main page start */
+
+.category-item {
+  flex-basis: calc(25% - 1rem);
+  max-width: calc(25% - 1rem);
+}
+
+@media (max-width: 768px) {
+  .category-item {
+    flex-basis: calc(33.333% - 1rem);
+    max-width: calc(33.333% - 1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .category-item {
+    flex-basis: calc(50% - 1rem);
+    max-width: calc(50% - 1rem);
+  }
+}
+
+@media (max-width: 320px) {
+  .category-item {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Styling for main page end */

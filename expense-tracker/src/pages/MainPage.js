@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
+import "./style.css";
 
 const MainPage = () => {
   const chartRef = useRef(null);
@@ -180,12 +181,10 @@ const MainPage = () => {
             {pieChartData.labels.map((category, index) => (
               <li
                 key={category}
-                className="p-2 rounded-lg m-2 text-center"
+                className="category-item p-2 rounded-lg m-2 text-center"
                 style={{
                   backgroundColor:
                     pieChartData.datasets[0].backgroundColor[index],
-                  flexBasis: "calc(50% - 1rem)",
-                  maxWidth: "calc(30% - 1rem)",
                   cursor: "pointer",
                   transition: "background-color 0.3s ease",
                 }}
