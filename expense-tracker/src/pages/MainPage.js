@@ -156,10 +156,10 @@ const MainPage = () => {
       {
         data: aggregatedData.map((data) => data.amount),
         backgroundColor: aggregatedData.map(
-          (data) => colors[data.category].base || "#E7E9ED"
+          (data) => "#E7E9ED" //colors[data.category].base ||
         ),
         hoverBackgroundColor: aggregatedData.map(
-          (data) => colors[data.category].hover || "#D1D2D4"
+          (data) => "#D1D2D4" //colors[data.category].hover ||
         ),
       },
     ],
