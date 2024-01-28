@@ -26,10 +26,10 @@ const MainPage = () => {
         const data = await response.json();
         console.log(data);
         setCategorizedData(
-          data.map((item) => ({
+          data.slice(1).map((item) => ({
             ...item,
             date: new Date(item.paymentDate),
-            amount: Number(item.amount),
+            amount: Math.round(Number(item.amount) * 100) / 100,
           }))
         );
       } catch (err) {
