@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 import "./style.css";
 import { FiEdit } from "react-icons/fi";
-import data from "../utils/data.json";
 
 const MainPage = () => {
   const chartRef = useRef(null);
@@ -17,7 +16,10 @@ const MainPage = () => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch("http://localhost:3000/get");
+        const response = await fetch("http://localhost:3000/get", {
+          method: "GET",
+          credentials: "include",
+        });
         if (!response.ok) {
           throw new Error("Data could not be fetched!");
         }

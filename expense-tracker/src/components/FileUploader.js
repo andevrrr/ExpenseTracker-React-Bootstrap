@@ -19,6 +19,7 @@ const FileUploader = ({ onFileSelectSuccess, onFileSelectError }) => {
 
     axios
       .post("http://localhost:3000/upload", formData, {
+        withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
         },
