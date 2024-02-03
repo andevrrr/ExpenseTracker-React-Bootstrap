@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Chart from "chart.js/auto";
 import "./style.css";
 import { FiEdit } from "react-icons/fi";
+import categoriesData from "../utils/categories.json";
 
 const MainPage = () => {
   const chartRef = useRef(null);
@@ -12,6 +13,7 @@ const MainPage = () => {
   const [categorizedData, setCategorizedData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [categories, setCategories] = useState(categoriesData);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -139,42 +141,6 @@ const MainPage = () => {
       amount,
     })
   );
-
-  const categories = [
-    "Transportation",
-    "Subscriptions and Memberships",
-    "Housing and Leasing",
-    "Transfers",
-    "Groceries", // Ruokakaupat
-    "Utilities", // Käyttömenot
-    "Dining", // Ruokailu
-    "Entertainment", // Viihde
-    "Travel and Accommodation", // Matkustus
-    "Healthcare", // Terveydenhuolto
-    "Fashion", // Muoti
-    "Recreation", // Vapaa-aika
-    "Technology and Electronics", // Teknologia
-    "Homeware", // Kotitavarat
-    "Education", // Koulutus
-    "Finance", // Rahoitus
-    "Pets", // Lemmikit
-    "Hobbies", // Harrastukset
-    "E-Commerce", // Verkkokauppa
-    "Services", // Palvelut
-    "Eco", // Ekologisuus
-    "Taxi", // Taksi
-    "Bars", // Baarit
-    "Clubs", // Klubit
-    "Fitness", // Kuntoilu
-    "Beauty", // Kauneus
-    "Books", // Kirjat
-    "Games", // Pelit
-    "Gifts", // Lahjat
-    "Music", // Musiikki
-    "Sports", // Urheilu
-    "Outdoor", // Ulkoilu
-    "Other",
-  ];
 
   const colors = {
     Transportation: { base: "#FF6384", hover: "#D9536F" },
