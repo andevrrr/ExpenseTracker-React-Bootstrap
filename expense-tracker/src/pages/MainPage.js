@@ -116,7 +116,8 @@ const MainPage = () => {
   }, 0);
 
   const categorySums = categorizedData.reduce((acc, { category, amount }) => {
-    acc[category] = (acc[category] || 0) + amount;
+    const roundedSum = parseFloat((acc[category] || 0) + amount).toFixed(2);
+    acc[category] = parseFloat(roundedSum);
     return acc;
   }, {});
 
