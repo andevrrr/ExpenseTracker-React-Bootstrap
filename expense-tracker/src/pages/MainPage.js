@@ -77,8 +77,11 @@ const MainPage = () => {
     try {
       const payload = {
         id: purchaseToUpdate.id,
+        categoryTitle: financial ? "outcome" : "income",
         newCategory,
       };
+
+      console.log(payload);
 
       const response = await fetch("http://localhost:3000/updateCategory", {
         method: "POST",
