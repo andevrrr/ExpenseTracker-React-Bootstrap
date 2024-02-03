@@ -80,8 +80,7 @@ const MainPage = () => {
   const handleSaveCategory = async (newCategory, purchaseToUpdate) => {
     try {
       const payload = {
-        paymentDate: purchaseToUpdate.date,
-        businessName: purchaseToUpdate.businessName,
+        id: purchaseToUpdate.id,
         newCategory,
       };
 
@@ -100,11 +99,7 @@ const MainPage = () => {
 
       // Update the local state to reflect the change
       const updatedData = categorizedData.map((purchase) => {
-        if (
-          purchase.businessName === purchaseToUpdate.businessName &&
-          new Date(purchase.date).getTime() ===
-            new Date(purchaseToUpdate.date).getTime()
-        ) {
+        if (purchase.id === purchaseToUpdate.id) {
           return { ...purchase, category: newCategory };
         }
         return purchase;
