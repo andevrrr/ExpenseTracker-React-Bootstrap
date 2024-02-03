@@ -237,7 +237,7 @@ const MainPage = () => {
       <div class="container my-5">
         <div class="row justify-content-center">
           <div class="col-md-4 mb-4">
-            <div class="card shadow">
+            <div class="card shadow border-0">
               <div class="card-body">
                 <canvas ref={chartRef}></canvas>
               </div>
@@ -245,7 +245,7 @@ const MainPage = () => {
           </div>
 
           <div class="col-md-8">
-            <div class="card shadow">
+            <div class="card shadow border-0">
               <div class="card-body">
                 <div class="row">
                   {pieChartData.labels.map((category, index) => (
