@@ -1,18 +1,19 @@
 {
   "outcomeCategories": [
     "Transportation",
-    "Subscriptions and Memberships",
-    "Housing and Leasing",
+    "Subscriptions",
+    "Memberships",
+    "Housing",
     "Transfers",
     "Groceries",
     "Utilities",
     "Dining",
     "Entertainment",
-    "Travel and Accommodation",
+    "Travel",
     "Healthcare",
     "Fashion",
     "Recreation",
-    "Technology and Electronics",
+    "Electronics",
     "Homeware",
     "Education",
     "Finance",
@@ -35,7 +36,7 @@
     "Other"
   ],
   "incomeCategories": [
-    "Salary/Wages",
+    "Salary",
     "Deposits",
     "Transfers",
     "MobilePay",
