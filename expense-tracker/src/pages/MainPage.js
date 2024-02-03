@@ -295,7 +295,7 @@ const MainPage = () => {
       <div className="mt-8">
         <h2 className="text-xl font-semibold mb-4">Purchases</h2>
         <ul className="border border-gray-200 p-2 rounded-lg">
-          <li className="text-lg mb-2 flex font-semibold border-b border-gray-200">
+          <li className="text-lg mb-2 flex font-semibold border-b border-gray-200 primary-color">
             <p className="flex-1">Date</p>
             <p className="flex-1">Business Name</p>
             <p className="flex-1">Payer</p>
