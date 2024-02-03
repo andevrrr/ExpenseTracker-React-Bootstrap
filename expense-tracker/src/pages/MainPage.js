@@ -158,6 +158,24 @@ const MainPage = () => {
     };
   }, [pieChartData]);
 
+  const getFormattedDateRange = () => {
+    if (categorizedData.length === 0) {
+      return "";
+    }
+    const lastDate = categorizedData[0].date;
+    const firstDate = categorizedData[categorizedData.length - 1].date;
+    const formattedFirstDate = firstDate.toLocaleDateString(undefined, {
+      day: "numeric",
+      month: "short",
+    });
+    const formattedLastDate = lastDate.toLocaleDateString(undefined, {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+    return `${formattedFirstDate} to ${formattedLastDate}`;
+  };
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -173,7 +191,7 @@ const MainPage = () => {
       )}
 
       <div className="text-center mb-4">
-        <h1 className="text-4xl font-bold">January</h1>
+        <h1 className="text-4xl font-bold">{getFormattedDateRange()}</h1>
       </div>
       <div className="flex justify-evenly items-center my-12">
         <div className="w-auto bg-white p-6 rounded-lg shadow-lg">
