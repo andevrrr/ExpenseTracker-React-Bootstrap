@@ -32,13 +32,13 @@ const colors = {
   Sports: { base: "#4bc0c0", hover: "#20b2b2" },
   Outdoor: { base: "#b0a1ff", hover: "#958fee" },
   Other: { base: "#c7c9cc", hover: "#aeb0b4" },
-  "Salary/Wages": { base: "#3f88c5", hover: "#1f4b7d" }, // Blue color
-  Deposits: { base: "#54b36f", hover: "#308940" }, // Green color
-  Transfers: { base: "#ffcc99", hover: "#ffad75" }, // Orange color
-  MobilePay: { base: "#ffa07a", hover: "#ff824b" }, // Light Coral color
-  Interest: { base: "#ff8c66", hover: "#ff704d" }, // Salmon color
-  Dividends: { base: "#b0a1ff", hover: "#958fee" }, // Light Purple color
-  Gifts: { base: "#c7c9cc", hover: "#aeb0b4" }, // Gray color
+  "Salary/Wages": { base: "#3f88c5", hover: "#1f4b7d" },
+  Deposits: { base: "#54b36f", hover: "#308940" },
+  Transfers: { base: "#ffcc99", hover: "#ffad75" },
+  MobilePay: { base: "#ffa07a", hover: "#ff824b" },
+  Interest: { base: "#ff8c66", hover: "#ff704d" },
+  Dividends: { base: "#b0a1ff", hover: "#958fee" },
+  Gifts: { base: "#c7c9cc", hover: "#aeb0b4" },
   "Rental Income": { base: "#47aa5c", hover: "#308940" },
 };
 
