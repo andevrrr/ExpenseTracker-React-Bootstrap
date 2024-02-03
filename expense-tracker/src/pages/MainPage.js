@@ -105,6 +105,19 @@ const MainPage = () => {
       });
 
       setCategorizedData(updatedData);
+
+      // Update the fetched data to reflect the change
+      const updatedFetchedData = { ...fetchedData };
+      const dataKey = financial ? "outcomeCategories" : "incomeCategories";
+      updatedFetchedData[dataKey] = updatedFetchedData[dataKey].map((item) => {
+        if (item.id === purchaseToUpdate.id) {
+          return { ...item, category: newCategory };
+        }
+        return item;
+      });
+
+      setFetchedData(updatedFetchedData);
+
       setShowEditPopup(false);
     } catch (error) {
       console.error("Error updating category:", error);
