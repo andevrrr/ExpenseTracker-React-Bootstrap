@@ -4,6 +4,7 @@ import Chart from "chart.js/auto";
 import "./style.css";
 import { FiEdit } from "react-icons/fi";
 import categoriesData from "../utils/categories.json";
+import categoryColors from "../utils/categoryColors";
 
 const MainPage = () => {
   const chartRef = useRef(null);
@@ -14,6 +15,7 @@ const MainPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [categories, setCategories] = useState(categoriesData);
+  const [colors, setColors] = useState(categoryColors);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -141,42 +143,6 @@ const MainPage = () => {
       amount,
     })
   );
-
-  const colors = {
-    Transportation: { base: "#FF6384", hover: "#D9536F" },
-    "Subscriptions and Memberships": { base: "#36A2EB", hover: "#2A91D8" },
-    "Housing and Leasing": { base: "#FFCE56", hover: "#E6B84D" },
-    Transfers: { base: "#FD6B19", hover: "#D25516" },
-    Groceries: { base: "#4BC0C0", hover: "#3DA6A6" },
-    Utilities: { base: "#9966FF", hover: "#8055E2" },
-    Dining: { base: "#C9CBCF", hover: "#AEB0B4" },
-    Entertainment: { base: "#7ACB77", hover: "#68B468" },
-    "Travel and Accommodation": { base: "#FAA75A", hover: "#E0954F" },
-    Healthcare: { base: "#B291FF", hover: "#9A7BDF" },
-    Fashion: { base: "#FF9F40", hover: "#E68A00" },
-    Recreation: { base: "#00D8FF", hover: "#00B2E6" },
-    "Technology and Electronics": { base: "#D3D3D3", hover: "#BEBEBE" },
-    Homeware: { base: "#FF6384", hover: "#FF4500" },
-    Education: { base: "#36A2EB", hover: "#1E90FF" },
-    Finance: { base: "#FFCE56", hover: "#FFD700" },
-    Pets: { base: "#FD6B19", hover: "#FA8072" },
-    Hobbies: { base: "#4BC0C0", hover: "#20B2AA" },
-    "E-Commerce": { base: "#9966FF", hover: "#8A2BE2" },
-    Services: { base: "#C9CBCF", hover: "#A9A9A9" },
-    Eco: { base: "#7ACB77", hover: "#3CB371" },
-    Taxi: { base: "#FAA75A", hover: "#FF8C00" },
-    Bars: { base: "#B291FF", hover: "#9370DB" },
-    Clubs: { base: "#FF9F40", hover: "#FF7F50" },
-    Fitness: { base: "#00D8FF", hover: "#00BFFF" },
-    Beauty: { base: "#D3D3D3", hover: "#C0C0C0" },
-    Books: { base: "#FF6384", hover: "#DB7093" },
-    Games: { base: "#36A2EB", hover: "#4682B4" },
-    Gifts: { base: "#FFCE56", hover: "#FFA07A" },
-    Music: { base: "#FD6B19", hover: "#FF4500" },
-    Sports: { base: "#4BC0C0", hover: "#40E0D0" },
-    Outdoor: { base: "#9966FF", hover: "#8A2BE2" },
-    Other: { base: "#C9CBCF", hover: "#B0C4DE" },
-  };
 
   // Generate the pie chart data using the aggregated data
   const pieChartData = {
