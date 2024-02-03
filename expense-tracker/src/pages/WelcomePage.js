@@ -24,21 +24,32 @@ const WelcomePage = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
-      <div className="text-center p-8 bg-white rounded-lg shadow-xl">
-        <p className="text-lg md:text-2xl lg:text-3xl font-bold text-green-600 mb-4">
-          Hello, Welcome!
-        </p>
-        <p className="text-sm md:text-base lg:text-lg text-gray-600 mb-6">
-          {isLoading
-            ? "Please wait, AI is analyzing your data"
-            : "Please upload your bank statement file."}
-        </p>
-        <FileUploader
-          onFileSelectSuccess={onFileUpload}
-          onFileSelectError={onFileUploadError}
-          onFileUploadStart={onFileUploadStart}
-        />
-      </div>
+      {isLoading ? (
+        <div className="text-center my-4">
+          <h3 className="mb-4">Please wait, AI is analyzing your data...</h3>{" "}
+          <div
+            className="spinner-border text-success"
+            role="status"
+            style={{ width: "3rem", height: "3rem" }}
+          >
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      ) : (
+        <div className="text-center p-8 bg-white rounded-lg shadow-xl">
+          <p className="text-lg md:text-2xl lg:text-3xl font-bold text-green-600 mb-4">
+            Hello, Welcome!
+          </p>
+          <p className="text-sm md:text-base lg:text-lg text-gray-600 mb-6">
+            Please upload your bank statement file.
+          </p>
+          <FileUploader
+            onFileSelectSuccess={onFileUpload}
+            onFileSelectError={onFileUploadError}
+            onFileUploadStart={onFileUploadStart}
+          />
+        </div>
+      )}
     </div>
   );
 };
