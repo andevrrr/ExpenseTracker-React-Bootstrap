@@ -180,70 +180,72 @@ const MainPage = () => {
           <canvas ref={chartRef} style={{ width: "400px" }}></canvas>
         </div>
         <div className="ml-5 w-auto bg-white p-6 rounded-lg shadow-lg">
-          <ul className="flex flex-wrap">
-            {pieChartData.labels.map((category, index) => (
-              <li
-                key={category}
-                className="category-item p-2 rounded-lg m-2 text-center"
+          <div className="h-[400px]">
+            <ul className="flex flex-wrap">
+              {pieChartData.labels.map((category, index) => (
+                <li
+                  key={category}
+                  className="category-item p-2 rounded-lg m-2 text-center"
+                  style={{
+                    backgroundColor:
+                      pieChartData.datasets[0].backgroundColor[index],
+                    cursor: "pointer",
+                    transition: "background-color 0.3s ease",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.backgroundColor =
+                      pieChartData.datasets[0].hoverBackgroundColor[index])
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.backgroundColor =
+                      pieChartData.datasets[0].backgroundColor[index])
+                  }
+                  onClick={() => setCurrentCategory(category)}
+                >
+                  <p className="text-base text-white">{category}</p>
+                  <p className="text-sm mt-3 text-white">
+                    {pieChartData.datasets[0].data[index]}€
+                  </p>
+                </li>
+              ))}
+            </ul>
+            <div className="flex justify-between items-center mt-4">
+              <p
                 style={{
-                  backgroundColor:
-                    pieChartData.datasets[0].backgroundColor[index],
+                  backgroundColor: "#D1D2D4",
                   cursor: "pointer",
                   transition: "background-color 0.3s ease",
                 }}
+                className="p-2 rounded-lg text-center text-lg flex-1 mr-2"
+                onClick={() => setCurrentCategory("All")}
                 onMouseEnter={(e) =>
-                  (e.currentTarget.style.backgroundColor =
-                    pieChartData.datasets[0].hoverBackgroundColor[index])
+                  (e.currentTarget.style.backgroundColor = "#BCC0C4")
                 }
                 onMouseLeave={(e) =>
-                  (e.currentTarget.style.backgroundColor =
-                    pieChartData.datasets[0].backgroundColor[index])
+                  (e.currentTarget.style.backgroundColor = "#D1D2D4")
                 }
-                onClick={() => setCurrentCategory(category)}
               >
-                <p className="text-base text-white">{category}</p>
-                <p className="text-sm mt-3 text-white">
-                  {pieChartData.datasets[0].data[index]}€
-                </p>
-              </li>
-            ))}
-          </ul>
-          <div className="flex justify-between items-center mt-4">
-            <p
-              style={{
-                backgroundColor: "#D1D2D4",
-                cursor: "pointer",
-                transition: "background-color 0.3s ease",
-              }}
-              className="p-2 rounded-lg text-center text-lg flex-1 mr-2"
-              onClick={() => setCurrentCategory("All")}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.backgroundColor = "#BCC0C4")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.backgroundColor = "#D1D2D4")
-              }
-            >
-              Total Amount Spent: {totalSumSpent}€
-            </p>
-            <p
-              style={{
-                backgroundColor: "#D1D2D4",
-                cursor: "pointer",
-                transition: "background-color 0.3s ease",
-              }}
-              className="p-2 rounded-lg text-center text-lg flex-1 ml-2"
-              onClick={() => setCurrentCategory("All")}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.backgroundColor = "#BCC0C4")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.backgroundColor = "#D1D2D4")
-              }
-            >
-              Total Amount Received: {totalSumReceived}€
-              {/* Update this with the correct variable for received amount */}
-            </p>
+                Total Amount Spent: {totalSumSpent}€
+              </p>
+              <p
+                style={{
+                  backgroundColor: "#D1D2D4",
+                  cursor: "pointer",
+                  transition: "background-color 0.3s ease",
+                }}
+                className="p-2 rounded-lg text-center text-lg flex-1 ml-2"
+                onClick={() => setCurrentCategory("All")}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#BCC0C4")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#D1D2D4")
+                }
+              >
+                Total Amount Received: {totalSumReceived}€
+                {/* Update this with the correct variable for received amount */}
+              </p>
+            </div>
           </div>
         </div>
       </div>
