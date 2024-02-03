@@ -6,7 +6,7 @@ import { FiEdit } from "react-icons/fi";
 import categoriesData from "../utils/categories.json";
 import categoryColors from "../utils/categoryColors";
 import EditCategoryPopup from "../components/EditCategoryPopUp";
-import "../App.css";
+import EndSessionPopup from "../components/EndSessionPopUp";
 
 const MainPage = () => {
   const chartRef = useRef(null);
@@ -20,6 +20,7 @@ const MainPage = () => {
   const [categories, setCategories] = useState();
   const [colors, setColors] = useState(categoryColors);
   const [financial, setFinancial] = useState(true); // this is for outcome and income switcher
+  const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -67,6 +68,17 @@ const MainPage = () => {
 
     fetchData();
   }, []);
+
+  const handleFinishClick = () => {
+    setShowConfirmationPopup(true);
+  };
+
+  const handleConfirmEndSession = () => {
+    endSession();
+    setShowConfirmationPopup(false);
+  };
+
+  const endSession = async () => {};
 
   const handleEditClick = (purchase) => {
     setSelectedPurchase(purchase);
@@ -232,9 +244,21 @@ const MainPage = () => {
           onSave={handleSaveCategory}
         />
       )}
+      {showConfirmationPopup && (
+        <EndSessionPopup
+          onClose={() => setShowConfirmationPopup(false)}
+          onConfirm={handleConfirmEndSession}
+        />
+      )}
 
       <div className="text-center mb-4">
         <div className="flex items-center justify-between">
+          <button
+            onClick={handleFinishClick}
+            className="btn btn-outline-danger"
+          >
+            Finish
+          </button>
           <h1 className="text-2xl font-bold primary-color ml-4">
             {getFormattedDateRange()}
           </h1>
