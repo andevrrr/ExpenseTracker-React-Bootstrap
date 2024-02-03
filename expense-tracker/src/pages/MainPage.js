@@ -28,9 +28,11 @@ const MainPage = () => {
       if (financial) {
         data = fetchedData.outcomeCategories;
         setCategories(categoriesData.outcomeCategories);
+        setCurrentCategory("All");
       } else if (!financial) {
         data = fetchedData.incomeCategories;
         setCategories(categoriesData.incomeCategories);
+        setCurrentCategory("All");
       }
       setCategorizedData(
         data.slice(1).map((item) => ({
