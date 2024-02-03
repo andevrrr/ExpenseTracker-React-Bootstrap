@@ -13,13 +13,34 @@ const MainPage = () => {
   const [currentCategory, setCurrentCategory] = useState("All");
   const [showEditPopup, setShowEditPopup] = useState(false);
   const [selectedPurchase, setSelectedPurchase] = useState(null);
+  const [fetchedData, setFetchedData] = useState();
   const [categorizedData, setCategorizedData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [categories, setCategories] = useState(categoriesData);
+  const [categories, setCategories] = useState();
   const [colors, setColors] = useState(categoryColors);
   const [financial, setFinancial] = useState(true); // this is for outcome and income switcher
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (fetchedData) {
+      let data = [];
+      if (financial) {
+        data = fetchedData.outcomeCategories;
+        setCategories(categoriesData.outcomeCategories);
+      } else if (!financial) {
+        data = fetchedData.incomeCategories;
+        setCategories(categoriesData.incomeCategories);
+      }
+      setCategorizedData(
+        data.slice(1).map((item) => ({
+          ...item,
+          date: new Date(item.paymentDate),
+          amount: Math.round(Number(item.amount) * 100) / 100,
+        }))
+      );
+    }
+  }, [fetchedData, financial]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,16 +53,10 @@ const MainPage = () => {
         if (!response.ok) {
           throw new Error("Data could not be fetched!");
         }
-        const data = await response.json();
-        console.log(data);
-        setCategorizedData(
-          data.slice(1).map((item) => ({
-            ...item,
-            date: new Date(item.paymentDate),
-            amount: Math.round(Number(item.amount) * 100) / 100,
-          }))
-        );
+        let data = await response.json();
+        setFetchedData(data);
       } catch (err) {
+        console.log(err);
         navigate("/");
       } finally {
         setIsLoading(false);
@@ -124,10 +139,10 @@ const MainPage = () => {
       {
         data: aggregatedData.map((data) => data.amount),
         backgroundColor: aggregatedData.map(
-          (data) => colors[data.category].base || "#E7E9ED"
+          (data) => "#E7E9ED" // colors[data.category].base ||
         ),
         hoverBackgroundColor: aggregatedData.map(
-          (data) => colors[data.category].hover || "#D1D2D4"
+          (data) => "#D1D2D4" // colors[data.category].hover ||
         ),
       },
     ],
@@ -210,7 +225,10 @@ const MainPage = () => {
               className={`p-2 rounded-lg text-base ${
                 !financial ? "primary-color" : "bg-white"
               }`}
-              onClick={() => setFinancial(false)}
+              onClick={() => {
+                console.log("Income button clicked");
+                setFinancial(false);
+              }}
             >
               Income
             </button>
