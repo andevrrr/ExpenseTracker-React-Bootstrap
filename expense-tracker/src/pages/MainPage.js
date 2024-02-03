@@ -5,6 +5,7 @@ import "./style.css";
 import { FiEdit } from "react-icons/fi";
 import categoriesData from "../utils/categories.json";
 import categoryColors from "../utils/categoryColors";
+import EditCategoryPopup from "../components/EditCategoryPopUp";
 
 const MainPage = () => {
   const chartRef = useRef(null);
@@ -51,36 +52,6 @@ const MainPage = () => {
   const handleEditClick = (purchase) => {
     setSelectedPurchase(purchase);
     setShowEditPopup(true);
-  };
-
-  const EditCategoryPopup = ({
-    onClose,
-    onSave,
-    categories,
-    selectedPurchase,
-  }) => {
-    const [selectedCategory, setSelectedCategory] = useState(
-      selectedPurchase.category
-    );
-
-    return (
-      <div className="popup">
-        <select
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-        >
-          {categories.map((category, index) => (
-            <option key={index} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-        <button onClick={() => onSave(selectedCategory, selectedPurchase)}>
-          Save
-        </button>
-        <button onClick={onClose}>Close</button>
-      </div>
-    );
   };
 
   const handleSaveCategory = async (newCategory, purchaseToUpdate) => {
