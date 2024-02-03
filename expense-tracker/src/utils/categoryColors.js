@@ -34,7 +34,7 @@ const colors = {
   Other: { base: "#c7c9cc", hover: "#aeb0b4" },
   "Salary/Wages": { base: "#3f88c5", hover: "#1f4b7d" },
   Deposits: { base: "#54b36f", hover: "#308940" },
-  Transfers: { base: "#ffcc99", hover: "#ffad75" },
+  Transfer: { base: "#ffcc99", hover: "#ffad75" },
   MobilePay: { base: "#ffa07a", hover: "#ff824b" },
   Interest: { base: "#ff8c66", hover: "#ff704d" },
   Dividends: { base: "#b0a1ff", hover: "#958fee" },
