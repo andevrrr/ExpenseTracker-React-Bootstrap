@@ -205,6 +205,20 @@ const MainPage = () => {
     return `${formattedFirstDate} to ${formattedLastDate}`;
   };
 
+  const purchasesByDate = categorizedData
+    .filter(
+      (purchase) =>
+        currentCategory === "All" || purchase.category === currentCategory
+    )
+    .reduce((acc, purchase) => {
+      const date = new Date(purchase.paymentDate).toLocaleDateString();
+      if (!acc[date]) {
+        acc[date] = [];
+      }
+      acc[date].push(purchase);
+      return acc;
+    }, {});
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -305,40 +319,34 @@ const MainPage = () => {
         </div>
       </div>
 
-      <div className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">Purchases</h2>
-        <ul className="border border-gray-200 p-2 rounded-lg">
-          <li className="text-lg mb-2 flex font-semibold border-b border-gray-200 primary-color">
-            <p className="flex-1">Date</p>
-            <p className="flex-1">Business Name</p>
-            <p className="flex-1">Payer</p>
-            <p className="flex-1">Category</p>
-            <p className="flex-1">Amount</p>
-          </li>
-          {categorizedData
-            .filter(
-              (purchase) =>
-                currentCategory === "All" ||
-                purchase.category === currentCategory
-            )
-            .map((purchase, index) => (
-              <li
-                key={index}
-                className="text-lg mb-2 flex items-center justify-between"
-              >
-                <p className="flex-1">
-                  {new Date(purchase.paymentDate).toLocaleDateString()}
-                </p>
-                <p className="flex-1">{purchase.businessName}</p>
-                <p className="flex-1">{purchase.payer}</p>
-                <div className="flex-1 flex items-center">
-                  <span className="mr-2">{purchase.category}</span>
-                  <FiEdit onClick={() => handleEditClick(purchase)} />
+      <div className="container mt-4">
+        <h2 className="mb-4">Purchases</h2>
+        {Object.entries(purchasesByDate).map(([date, purchases]) => (
+          <div key={date}>
+            <h5 className="mb-3 my-5 primary-color">{date}</h5>
+            {purchases.map((purchase, index) => (
+              <div key={index} className="card mb-2">
+                <div className="card-body d-flex justify-content-between align-items-center">
+                  <div className="me-2">
+                    <strong>{purchase.businessName}</strong>
+                  </div>
+                  <div>
+                    <button
+                      className="btn btn-outline-secondary"
+                      onClick={() => handleEditClick(purchase)}
+                    >
+                      <FiEdit />
+                    </button>
+                  </div>
+                  <div className="text-end">
+                    <div>{purchase.amount}€</div>
+                    <div className="text-muted">{purchase.category}</div>
+                  </div>
                 </div>
-                <p className="flex-1">{purchase.amount}€</p>
-              </li>
+              </div>
             ))}
-        </ul>
+          </div>
+        ))}
       </div>
     </div>
   );
