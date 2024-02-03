@@ -43,7 +43,6 @@ const MainPage = () => {
   }, []);
 
   const handleEditClick = (purchase) => {
-    console.log(purchase);
     setSelectedPurchase(purchase);
     setShowEditPopup(true);
   };
@@ -53,36 +52,69 @@ const MainPage = () => {
     onSave,
     categories,
     selectedPurchase,
-  }) => (
-    <div className="popup">
-      <select
-        defaultValue={selectedPurchase.category}
-        onChange={(e) => onSave(e.target.value, selectedPurchase)}
-      >
-        {categories.map((category, index) => (
-          <option key={index} value={category}>
-            {category}
-          </option>
-        ))}
-      </select>
-      <button onClick={onClose}>Close</button>
-    </div>
-  );
+  }) => {
+    const [selectedCategory, setSelectedCategory] = useState(
+      selectedPurchase.category
+    );
 
-  const handleSaveCategory = (newCategory, purchaseToUpdate) => {
-    const updatedData = categorizedData.map((purchase) => {
-      const isSamePurchase =
-        purchase.businessName === purchaseToUpdate.businessName &&
-        purchase.paymentDate.getTime() ===
-          new Date(purchaseToUpdate.paymentDate).getTime();
-      if (isSamePurchase) {
-        return { ...purchase, category: newCategory };
+    return (
+      <div className="popup">
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
+          {categories.map((category, index) => (
+            <option key={index} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+        <button onClick={() => onSave(selectedCategory, selectedPurchase)}>
+          Save
+        </button>
+        <button onClick={onClose}>Close</button>
+      </div>
+    );
+  };
+
+  const handleSaveCategory = async (newCategory, purchaseToUpdate) => {
+    try {
+      const payload = {
+        paymentDate: purchaseToUpdate.date,
+        businessName: purchaseToUpdate.businessName,
+        newCategory,
+      };
+
+      const response = await fetch("http://localhost:3000/updateCategory", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update the category.");
       }
-      return purchase;
-    });
 
-    setCategorizedData(updatedData);
-    setShowEditPopup(false);
+      // Update the local state to reflect the change
+      const updatedData = categorizedData.map((purchase) => {
+        if (
+          purchase.businessName === purchaseToUpdate.businessName &&
+          new Date(purchase.date).getTime() ===
+            new Date(purchaseToUpdate.date).getTime()
+        ) {
+          return { ...purchase, category: newCategory };
+        }
+        return purchase;
+      });
+
+      setCategorizedData(updatedData);
+      setShowEditPopup(false);
+    } catch (error) {
+      console.error("Error updating category:", error);
+    }
   };
 
   const categories = [...new Set(categorizedData.map((item) => item.category))];
