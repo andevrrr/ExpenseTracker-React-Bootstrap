@@ -78,7 +78,25 @@ const MainPage = () => {
     setShowConfirmationPopup(false);
   };
 
-  const endSession = async () => {};
+  const endSession = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch("http://localhost:3000/deleteSession", {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if (!response.ok) {
+        throw new Error("Session could not be deleted!");
+      }
+      const data = await response.json();
+      console.log(data.message);
+      navigate("/");
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleEditClick = (purchase) => {
     setSelectedPurchase(purchase);
