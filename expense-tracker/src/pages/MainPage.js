@@ -35,7 +35,7 @@ const MainPage = () => {
           }))
         );
       } catch (err) {
-        navigate('/');
+        navigate("/");
       } finally {
         setIsLoading(false);
       }
@@ -114,8 +114,6 @@ const MainPage = () => {
     }
   };
 
-  const categories = [...new Set(categorizedData.map((item) => item.category))];
-
   const totalSumSpent = categorizedData.reduce((total, item) => {
     if (Number(item.amount) < 0) {
       return total + Math.abs(Number(item.amount)); // Convert to positive and add to total
@@ -141,6 +139,42 @@ const MainPage = () => {
       amount,
     })
   );
+
+  const categories = [
+    "Transportation",
+    "Subscriptions and Memberships",
+    "Housing and Leasing",
+    "Transfers",
+    "Groceries", // Ruokakaupat
+    "Utilities", // Käyttömenot
+    "Dining", // Ruokailu
+    "Entertainment", // Viihde
+    "Travel and Accommodation", // Matkustus
+    "Healthcare", // Terveydenhuolto
+    "Fashion", // Muoti
+    "Recreation", // Vapaa-aika
+    "Technology and Electronics", // Teknologia
+    "Homeware", // Kotitavarat
+    "Education", // Koulutus
+    "Finance", // Rahoitus
+    "Pets", // Lemmikit
+    "Hobbies", // Harrastukset
+    "E-Commerce", // Verkkokauppa
+    "Services", // Palvelut
+    "Eco", // Ekologisuus
+    "Taxi", // Taksi
+    "Bars", // Baarit
+    "Clubs", // Klubit
+    "Fitness", // Kuntoilu
+    "Beauty", // Kauneus
+    "Books", // Kirjat
+    "Games", // Pelit
+    "Gifts", // Lahjat
+    "Music", // Musiikki
+    "Sports", // Urheilu
+    "Outdoor", // Ulkoilu
+    "Other",
+  ];
 
   const colors = {
     Transportation: { base: "#FF6384", hover: "#D9536F" },
@@ -185,10 +219,10 @@ const MainPage = () => {
       {
         data: aggregatedData.map((data) => data.amount),
         backgroundColor: aggregatedData.map(
-          (data) => "#E7E9ED" //colors[data.category].base ||
+          (data) => colors[data.category].base || "#E7E9ED"
         ),
         hoverBackgroundColor: aggregatedData.map(
-          (data) => "#D1D2D4" //colors[data.category].hover ||
+          (data) => colors[data.category].hover || "#D1D2D4"
         ),
       },
     ],
