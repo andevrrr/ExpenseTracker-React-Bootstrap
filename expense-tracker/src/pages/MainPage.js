@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Chart from "chart.js/auto";
 import "./style.css";
 import { FiEdit } from "react-icons/fi";
@@ -11,6 +12,7 @@ const MainPage = () => {
   const [categorizedData, setCategorizedData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +35,7 @@ const MainPage = () => {
           }))
         );
       } catch (err) {
-        setError(err.message);
+        navigate('/');
       } finally {
         setIsLoading(false);
       }
