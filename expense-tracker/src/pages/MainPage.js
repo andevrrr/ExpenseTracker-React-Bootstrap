@@ -106,16 +106,9 @@ const MainPage = () => {
     }
   };
 
-  const totalSumSpent = categorizedData.reduce((total, item) => {
-    if (Number(item.amount) < 0) {
+  const totalSum = categorizedData.reduce((total, item) => {
+    if (Number(item.amount)) {
       return total + Math.abs(Number(item.amount)); // Convert to positive and add to total
-    }
-    return total;
-  }, 0);
-
-  const totalSumReceived = categorizedData.reduce((total, item) => {
-    if (Number(item.amount) >= 0) {
-      return total + Number(item.amount);
     }
     return total;
   }, 0);
@@ -285,25 +278,7 @@ const MainPage = () => {
                   (e.currentTarget.style.backgroundColor = "#D1D2D4")
                 }
               >
-                Total Amount Spent: {totalSumSpent}€
-              </p>
-              <p
-                style={{
-                  backgroundColor: "#D1D2D4",
-                  cursor: "pointer",
-                  transition: "background-color 0.3s ease",
-                }}
-                className="p-2 rounded-lg text-center text-lg flex-1 ml-2"
-                onClick={() => setCurrentCategory("All")}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#48bb78")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#D1D2D4")
-                }
-              >
-                Total Amount Received: {totalSumReceived}€
-                {/* Update this with the correct variable for received amount */}
+                Total Amount: {totalSum}€
               </p>
             </div>
           </div>
