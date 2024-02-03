@@ -6,6 +6,7 @@ import { FiEdit } from "react-icons/fi";
 import categoriesData from "../utils/categories.json";
 import categoryColors from "../utils/categoryColors";
 import EditCategoryPopup from "../components/EditCategoryPopUp";
+import "../App.css";
 
 const MainPage = () => {
   const chartRef = useRef(null);
@@ -17,6 +18,7 @@ const MainPage = () => {
   const [error, setError] = useState(null);
   const [categories, setCategories] = useState(categoriesData);
   const [colors, setColors] = useState(categoryColors);
+  const [financial, setFinancial] = useState(true); // this is for outcome and income switcher
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -191,7 +193,29 @@ const MainPage = () => {
       )}
 
       <div className="text-center mb-4">
-        <h1 className="text-4xl font-bold">{getFormattedDateRange()}</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold primary-color ml-4">
+            {getFormattedDateRange()}
+          </h1>
+          <div className="mr-4">
+            <button
+              className={`mr-2 p-2 rounded-lg text-base ${
+                financial ? "primary-color" : "bg-white"
+              }`}
+              onClick={() => setFinancial(true)}
+            >
+              Outcome
+            </button>
+            <button
+              className={`p-2 rounded-lg text-base ${
+                !financial ? "primary-color" : "bg-white"
+              }`}
+              onClick={() => setFinancial(false)}
+            >
+              Income
+            </button>
+          </div>
+        </div>
       </div>
       <div className="flex justify-evenly items-center my-12">
         <div className="w-auto bg-white p-6 rounded-lg shadow-lg">
@@ -237,7 +261,7 @@ const MainPage = () => {
                 className="p-2 rounded-lg text-center text-lg flex-1 mr-2"
                 onClick={() => setCurrentCategory("All")}
                 onMouseEnter={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#BCC0C4")
+                  (e.currentTarget.style.backgroundColor = "#48bb78")
                 }
                 onMouseLeave={(e) =>
                   (e.currentTarget.style.backgroundColor = "#D1D2D4")
@@ -254,7 +278,7 @@ const MainPage = () => {
                 className="p-2 rounded-lg text-center text-lg flex-1 ml-2"
                 onClick={() => setCurrentCategory("All")}
                 onMouseEnter={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#BCC0C4")
+                  (e.currentTarget.style.backgroundColor = "#48bb78")
                 }
                 onMouseLeave={(e) =>
                   (e.currentTarget.style.backgroundColor = "#D1D2D4")
