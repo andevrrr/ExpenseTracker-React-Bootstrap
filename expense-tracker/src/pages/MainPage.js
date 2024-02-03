@@ -327,10 +327,10 @@ const MainPage = () => {
             {purchases.map((purchase, index) => (
               <div key={index} className="card mb-2">
                 <div className="card-body d-flex justify-content-between align-items-center">
-                  <div className="me-2">
+                  <div className="col-4">
                     <strong>{purchase.businessName}</strong>
                   </div>
-                  <div>
+                  <div className="col-4 d-flex justify-content-end">
                     <button
                       className="btn btn-outline-secondary"
                       onClick={() => handleEditClick(purchase)}
@@ -338,7 +338,7 @@ const MainPage = () => {
                       <FiEdit />
                     </button>
                   </div>
-                  <div className="text-end">
+                  <div className="col-4 text-end">
                     <div>{purchase.amount}€</div>
                     <div className="text-muted">{purchase.category}</div>
                   </div>
