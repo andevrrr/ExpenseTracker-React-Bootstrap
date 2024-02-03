@@ -7,6 +7,7 @@ import categoriesData from "../utils/categories.json";
 import categoryColors from "../utils/categoryColors";
 import EditCategoryPopup from "../components/EditCategoryPopUp";
 import EndSessionPopup from "../components/EndSessionPopUp";
+import AddPurchasePopup from "../components/AddPurchasePopUp";
 
 const MainPage = () => {
   const chartRef = useRef(null);
@@ -21,6 +22,15 @@ const MainPage = () => {
   const [colors, setColors] = useState(categoryColors);
   const [financial, setFinancial] = useState(true); // this is for outcome and income switcher
   const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
+  const [showAddPurchaseForm, setShowAddPurchaseForm] = useState(false);
+  const [newPurchase, setNewPurchase] = useState({
+    paymentDate: "",
+    businessName: "",
+    payer: "",
+    amount: "",
+    category: "",
+  });
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -68,6 +78,11 @@ const MainPage = () => {
 
     fetchData();
   }, []);
+
+  const handleAddPurchase = (purchase) => {
+    console.log(purchase);
+    setShowAddPurchaseForm(false);
+  };
 
   const handleFinishClick = () => {
     setShowConfirmationPopup(true);
@@ -268,7 +283,13 @@ const MainPage = () => {
           onConfirm={handleConfirmEndSession}
         />
       )}
-
+      {showAddPurchaseForm && (
+        <AddPurchasePopup
+          categories={categories}
+          onSave={handleAddPurchase}
+          onClose={() => setShowAddPurchaseForm(false)}
+        />
+      )}
       <div className="text-center mb-4">
         <div className="flex items-center justify-between">
           <button
@@ -363,6 +384,12 @@ const MainPage = () => {
 
       <div className="container mt-4">
         <h2 className="mb-4">Purchases</h2>
+        <button
+          className="btn btn-outline-success"
+          onClick={() => setShowAddPurchaseForm(true)}
+        >
+          Add a Purchase
+        </button>
         {Object.entries(purchasesByDate).map(([date, purchases]) => (
           <div key={date}>
             <h5 className="mb-3 my-5 primary-color">{date}</h5>
