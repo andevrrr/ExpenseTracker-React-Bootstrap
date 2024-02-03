@@ -228,62 +228,64 @@ const MainPage = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-evenly items-center my-12">
-        <div className="w-auto bg-white p-6 rounded-lg shadow-lg">
-          <canvas ref={chartRef} style={{ width: "400px" }}></canvas>
-        </div>
-        <div className="ml-5 w-auto bg-white p-6 rounded-lg shadow-lg">
-          <div className="h-[400px]">
-            <ul className="flex flex-wrap">
-              {pieChartData.labels.map((category, index) => (
-                <li
-                  key={category}
-                  className="category-item p-2 rounded-lg m-2 text-center"
-                  style={{
-                    backgroundColor:
-                      pieChartData.datasets[0].backgroundColor[index],
-                    cursor: "pointer",
-                    transition: "background-color 0.3s ease",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.backgroundColor =
-                      pieChartData.datasets[0].hoverBackgroundColor[index])
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.backgroundColor =
-                      pieChartData.datasets[0].backgroundColor[index])
-                  }
-                  onClick={() => setCurrentCategory(category)}
+      <div class="container my-5">
+        <div class="row justify-content-center">
+          <div class="col-md-4 mb-4">
+            <div class="card shadow">
+              <div class="card-body">
+                <canvas ref={chartRef}></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-8">
+            <div class="card shadow">
+              <div class="card-body">
+                <div class="row">
+                  {pieChartData.labels.map((category, index) => (
+                    <div class="col-6 col-md-4 col-lg-3 mb-3 d-flex justify-content-center">
+                      <div
+                        key={category}
+                        class="d-flex flex-column justify-content-center align-items-center text-center rounded cursor-pointer"
+                        style={{
+                          backgroundColor:
+                            pieChartData.datasets[0].backgroundColor[index],
+                          width: "100%", // Fixed width
+                          height: "100px", // Fixed height
+                        }}
+                        onMouseEnter={(e) =>
+                          (e.currentTarget.style.backgroundColor =
+                            pieChartData.datasets[0].hoverBackgroundColor[
+                              index
+                            ])
+                        }
+                        onMouseLeave={(e) =>
+                          (e.currentTarget.style.backgroundColor =
+                            pieChartData.datasets[0].backgroundColor[index])
+                        }
+                        onClick={() => setCurrentCategory(category)}
+                      >
+                        <p class="text-white m-0">{category}</p>
+                        <small class="text-white">
+                          {pieChartData.datasets[0].data[index]}€
+                        </small>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <button
+                  class="btn btn-outline-secondary w-100 mt-3"
+                  onClick={() => setCurrentCategory("All")}
                 >
-                  <p className="text-base text-white">{category}</p>
-                  <p className="text-sm mt-3 text-white">
-                    {pieChartData.datasets[0].data[index]}€
-                  </p>
-                </li>
-              ))}
-            </ul>
-            <div className="flex justify-between items-center mt-4">
-              <p
-                style={{
-                  backgroundColor: "#D1D2D4",
-                  cursor: "pointer",
-                  transition: "background-color 0.3s ease",
-                }}
-                className="p-2 rounded-lg text-center text-lg flex-1 mr-2"
-                onClick={() => setCurrentCategory("All")}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#48bb78")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#D1D2D4")
-                }
-              >
-                Total Amount: {totalSum}€
-              </p>
+                  Total Amount: {totalSum}€
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
       <div className="mt-8">
         <h2 className="text-xl font-semibold mb-4">Purchases</h2>
         <ul className="border border-gray-200 p-2 rounded-lg">
