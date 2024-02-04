@@ -41,7 +41,7 @@ const FileUploader = ({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4">
+    <div className="d-flex flex-column align-items-center justify-content-center p-2">
       <input
         type="file"
         onChange={handleFileChange}
@@ -53,7 +53,7 @@ const FileUploader = ({
       />
       <Button
         onClick={handleFileUpload}
-        className="btn btn-success"
+        className="btn-sm btn-success"
         style={{ backgroundColor: "#48bb78", borderColor: "#48bb78" }}
       >
         Upload

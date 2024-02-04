@@ -7,6 +7,7 @@ const WelcomePage = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onFileUpload = (uploadedFile) => {
     const categorizedData = [];
@@ -14,6 +15,7 @@ const WelcomePage = () => {
   };
 
   const onFileUploadError = (message) => {
+    setErrorMessage(message);
     setShowErrorModal(true);
     setIsLoading(false);
   };
@@ -23,25 +25,20 @@ const WelcomePage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
+    <div className="container d-flex justify-content-center align-items-center min-vh-100">
       {isLoading ? (
-        <div className="text-center my-4">
-          <h3 className="mb-4">Please wait, AI is analyzing your data...</h3>
-          <div
-            className="spinner-border text-success"
-            style={{ width: "3rem", height: "3rem" }}
-          >
+        <div className="text-center">
+          <h3>Please wait, AI is analyzing your data...</h3>
+          <div className="spinner-border text-success" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
         </div>
       ) : (
-        <div className="text-center p-8 bg-white rounded-lg shadow-xl">
-          <p className="text-lg md:text-2xl lg:text-3xl font-bold text-green-600 mb-4">
+        <div className="text-center p-4 bg-white rounded-lg shadow">
+          <h1 className="h3 mb-3 font-weight-bold primary-color">
             Hello, Welcome!
-          </p>
-          <p className="text-sm md:text-base lg:text-lg text-gray-600 mb-6">
-            Please upload your bank statement file.
-          </p>
+          </h1>
+          <p>Please upload your bank statement file.</p>
           <FileUploader
             onFileSelectSuccess={onFileUpload}
             onFileSelectError={onFileUploadError}
