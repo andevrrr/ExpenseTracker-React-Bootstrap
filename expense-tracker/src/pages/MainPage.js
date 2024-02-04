@@ -229,8 +229,10 @@ const MainPage = () => {
   };
 
   const totalSum = categorizedData.reduce((total, item) => {
-    if (Number(item.amount)) {
-      return total + Math.abs(Number(item.amount)); // Convert to positive and add to total
+    const amount = parseFloat(item.amount);
+    if (!isNaN(amount)) {
+      const sum = total + Math.abs(amount);
+      return parseFloat(sum.toFixed(2));
     }
     return total;
   }, 0);
