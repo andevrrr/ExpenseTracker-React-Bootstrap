@@ -398,7 +398,10 @@ const MainPage = () => {
               <div className="card-body">
                 <div className="row">
                   {pieChartData.labels.map((category, index) => (
-                    <div key={index} className="col-6 col-md-4 col-lg-3 mb-3 d-flex justify-content-center">
+                    <div
+                      key={index}
+                      className="col-6 col-md-4 col-lg-3 mb-3 d-flex justify-content-center"
+                    >
                       <div
                         key={category}
                         className="d-flex flex-column justify-content-center align-items-center text-center rounded cursor-pointer"
