@@ -323,6 +323,12 @@ const MainPage = () => {
       return acc;
     }, {});
 
+  const sortedEntries = Object.entries(purchasesByDate).sort((a, b) => {
+    const dateA = new Date(a[0].split("/").reverse().join("-"));
+    const dateB = new Date(b[0].split("/").reverse().join("-"));
+    return dateA - dateB;
+  });
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -452,7 +458,7 @@ const MainPage = () => {
         >
           Add a Purchase
         </button>
-        {Object.entries(purchasesByDate).map(([date, purchases]) => (
+        {sortedEntries.map(([date, purchases]) => (
           <div key={date}>
             <h5 className="mb-3 my-5 primary-color">{date}</h5>
             {purchases.map((purchase, index) => (
