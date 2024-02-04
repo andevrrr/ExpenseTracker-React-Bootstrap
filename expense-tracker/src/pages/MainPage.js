@@ -383,25 +383,25 @@ const MainPage = () => {
           </div>
         </div>
       </div>
-      <div class="container my-5">
-        <div class="row justify-content-center">
-          <div class="col-md-4 mb-4">
-            <div class="card shadow border-0">
-              <div class="card-body">
+      <div className="container my-5">
+        <div className="row justify-content-center">
+          <div className="col-md-4 mb-4">
+            <div className="card shadow border-0">
+              <div className="card-body">
                 <canvas ref={chartRef}></canvas>
               </div>
             </div>
           </div>
 
-          <div class="col-md-8">
-            <div class="card shadow border-0">
-              <div class="card-body">
-                <div class="row">
+          <div className="col-md-8">
+            <div className="card shadow border-0">
+              <div className="card-body">
+                <div className="row">
                   {pieChartData.labels.map((category, index) => (
-                    <div class="col-6 col-md-4 col-lg-3 mb-3 d-flex justify-content-center">
+                    <div key={index} className="col-6 col-md-4 col-lg-3 mb-3 d-flex justify-content-center">
                       <div
                         key={category}
-                        class="d-flex flex-column justify-content-center align-items-center text-center rounded cursor-pointer"
+                        className="d-flex flex-column justify-content-center align-items-center text-center rounded cursor-pointer"
                         style={{
                           backgroundColor:
                             pieChartData.datasets[0].backgroundColor[index],
@@ -420,8 +420,8 @@ const MainPage = () => {
                         }
                         onClick={() => setCurrentCategory(category)}
                       >
-                        <p class="text-white m-0">{category}</p>
-                        <small class="text-white">
+                        <p className="text-white m-0">{category}</p>
+                        <small className="text-white">
                           {pieChartData.datasets[0].data[index]}€
                         </small>
                       </div>
@@ -430,7 +430,7 @@ const MainPage = () => {
                 </div>
 
                 <button
-                  class="btn btn-outline-secondary w-100 mt-3"
+                  className="btn btn-outline-secondary w-100 mt-3"
                   onClick={() => setCurrentCategory("All")}
                 >
                   Total Amount: {totalSum}€
