@@ -32,7 +32,10 @@ const FileUploader = ({
           onFileSelectSuccess(selectedFile);
         })
         .catch((error) => {
-          onFileSelectError(error.message);
+          const errorResponseMessage = error.response
+            ? error.response.data
+            : error.message;
+          onFileSelectError(errorResponseMessage);
         });
     }
   };

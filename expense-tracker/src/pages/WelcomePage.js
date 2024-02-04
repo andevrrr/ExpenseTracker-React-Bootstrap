@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FileUploader from "../components/FileUploader";
+import { Modal, Button } from "react-bootstrap";
 
 const WelcomePage = () => {
   const navigate = useNavigate();
-  const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
   const onFileUpload = (uploadedFile) => {
-    setFile(uploadedFile);
     const categorizedData = [];
     navigate("/main", { state: { categorizedData } });
   };
 
-  const onFileUploadError = (errorMessage) => {
-    console.error(errorMessage);
+  const onFileUploadError = (message) => {
+    setShowErrorModal(true);
     setIsLoading(false);
   };
 
@@ -26,10 +26,9 @@ const WelcomePage = () => {
     <div className="flex justify-center items-center h-screen bg-gray-100">
       {isLoading ? (
         <div className="text-center my-4">
-          <h3 className="mb-4">Please wait, AI is analyzing your data...</h3>{" "}
+          <h3 className="mb-4">Please wait, AI is analyzing your data...</h3>
           <div
             className="spinner-border text-success"
-            role="status"
             style={{ width: "3rem", height: "3rem" }}
           >
             <span className="visually-hidden">Loading...</span>
@@ -50,6 +49,16 @@ const WelcomePage = () => {
           />
         </div>
       )}
+
+      <Modal show={showErrorModal} onHide={() => setShowErrorModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Upload Error</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          The file format is not supported. Please ensure your file is in .csv
+          format and try again.
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
