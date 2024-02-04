@@ -79,9 +79,68 @@ const MainPage = () => {
     fetchData();
   }, []);
 
-  const handleAddPurchase = (purchase) => {
-    console.log(purchase);
+  const handleAddPurchase = async (purchase) => {
+    const maxId = categorizedData.reduce(
+      (max, item) => Math.max(max, item.id),
+      0
+    );
+    const newId = maxId + 1;
+    const newPurchaseWithId = { ...purchase, id: newId };
+
+    const updatedCategorizedData = [...categorizedData];
+
+    updatedCategorizedData.splice(1, 0, newPurchaseWithId);
+
+    setCategorizedData(updatedCategorizedData);
+
+    const updatedFetchedData = { ...fetchedData };
+    const categoryKey = financial ? "outcomeCategories" : "incomeCategories";
+
+    if (!updatedFetchedData[categoryKey]) {
+      updatedFetchedData[categoryKey] = [];
+    }
+
+    if (updatedFetchedData[categoryKey].length >= 1) {
+      updatedFetchedData[categoryKey].splice(1, 0, newPurchaseWithId);
+    } else {
+      updatedFetchedData[categoryKey].push(newPurchaseWithId);
+    }
+
+    setFetchedData(updatedFetchedData);
+
+    const payload = {
+      purchase: newPurchaseWithId,
+      categoryTitle: financial ? "outcome" : "income",
+    };
+
+    try {
+      const response = await fetch("http://localhost:3000/addPurchase", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add the purchase.");
+      }
+
+      const responseData = await response.json();
+      console.log("Purchase added:", responseData);
+    } catch (error) {
+      console.error("Error adding purchase:", error);
+    }
+
     setShowAddPurchaseForm(false);
+    setNewPurchase({
+      paymentDate: "",
+      businessName: "",
+      payer: "",
+      amount: "",
+      category: "",
+    });
   };
 
   const handleFinishClick = () => {
