@@ -47,13 +47,22 @@ const WelcomePage = () => {
         </div>
       )}
 
-      <Modal show={showErrorModal} onHide={() => setShowErrorModal(false)}>
+      <Modal
+        size="md"
+        show={showErrorModal}
+        onHide={() => setShowErrorModal(false)}
+        aria-labelledby="contained-modal-title-vcenter"
+      >
         <Modal.Header closeButton>
-          <Modal.Title>Upload Error</Modal.Title>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Upload Error
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          The file format is not supported. Please ensure your file is in .csv
-          format and try again.
+          <p>
+            The file format is not supported. Please ensure your file is in .csv
+            format and try again.
+          </p>
         </Modal.Body>
       </Modal>
     </div>
