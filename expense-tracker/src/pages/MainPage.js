@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Chart from "chart.js/auto";
 import "./style.css";
-import { FiEdit } from "react-icons/fi";
 import categoriesData from "../utils/categories.json";
 import categoryColors from "../utils/categoryColors";
 import EditCategoryPopup from "../components/EditCategoryPopUp";
 import EndSessionPopup from "../components/EndSessionPopUp";
 import AddPurchasePopup from "../components/AddPurchasePopUp";
+import PurchasesList from "../components/PurchasesList";
 
 const MainPage = () => {
   const chartRef = useRef(null);
@@ -461,29 +461,11 @@ const MainPage = () => {
         {sortedEntries.map(([date, purchases]) => (
           <div key={date}>
             <h5 className="mb-3 my-5 primary-color">{date}</h5>
-            {purchases.map((purchase, index) => (
-              <div key={index} className="card mb-2">
-                <div className="card-body d-flex justify-content-between align-items-center">
-                  <div className="col-4">
-                    <strong>
-                      {financial ? purchase.businessName : purchase.payer}
-                    </strong>
-                  </div>
-                  <div className="col-4 d-flex justify-content-end">
-                    <button
-                      className="btn btn-outline-secondary"
-                      onClick={() => handleEditClick(purchase)}
-                    >
-                      <FiEdit />
-                    </button>
-                  </div>
-                  <div className="col-4 text-end">
-                    <div>{purchase.amount}€</div>
-                    <div className="text-muted">{purchase.category}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
+            <PurchasesList
+              financial={financial}
+              purchases={purchases}
+              onEditClick={handleEditClick}
+            />
           </div>
         ))}
       </div>
