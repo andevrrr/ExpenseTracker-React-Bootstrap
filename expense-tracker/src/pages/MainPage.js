@@ -67,7 +67,8 @@ const MainPage = () => {
           throw new Error("Data could not be fetched!");
         }
         let data = await response.json();
-        setFetchedData(data);
+        let transactions = data.transactions;
+        setFetchedData(transactions);
       } catch (err) {
         console.log(err);
         navigate("/");
