@@ -58,19 +58,20 @@ const MainPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
+      setError(null);
       try {
         const response = await fetch("http://localhost:3000/get", {
           method: "GET",
           credentials: "include",
         });
         if (!response.ok) {
-          throw new Error("Data could not be fetched!");
+          throw new Error("Failed to fetch data. Please try again later.");
         }
-        let data = await response.json();
-        let transactions = data.transactions;
-        setFetchedData(transactions);
+        const data = await response.json();
+        setFetchedData(data.transactions);
       } catch (err) {
-        console.log(err);
+        setError(err.message);
+        console.error(err);
         navigate("/");
       } finally {
         setIsLoading(false);
@@ -155,6 +156,7 @@ const MainPage = () => {
 
   const endSession = async () => {
     setIsLoading(true);
+    setError(null);
     try {
       const response = await fetch("http://localhost:3000/deleteSession", {
         method: "DELETE",
@@ -167,7 +169,8 @@ const MainPage = () => {
       console.log(data.message);
       navigate("/");
     } catch (error) {
-      console.error("Error:", error);
+      setError("Failed to end session. Please try again.");
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
