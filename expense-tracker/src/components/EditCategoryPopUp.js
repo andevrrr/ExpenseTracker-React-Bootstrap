@@ -40,8 +40,8 @@ const EditCategoryPopup = ({
           </select>
           <div className="mt-3 d-flex justify-content-end">
             <button
-              className="btn me-2"
-              style={{ backgroundColor: "#48bb78", color: "white" }}
+              className="btn me-2 primary-background-color"
+              style={{ color: "white" }}
               onClick={() => onSave(selectedCategory, selectedPurchase)}
             >
               Save

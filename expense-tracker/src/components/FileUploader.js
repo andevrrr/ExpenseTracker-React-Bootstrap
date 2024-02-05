@@ -53,8 +53,8 @@ const FileUploader = ({
       />
       <Button
         onClick={handleFileUpload}
-        className="btn-sm btn-success"
-        style={{ backgroundColor: "#48bb78", borderColor: "#48bb78" }}
+        className="btn-sm btn-success primary-background-color"
+        style={{ borderColor: "#48bb78" }}
       >
         Upload
       </Button>

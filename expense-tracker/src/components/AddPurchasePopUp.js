@@ -97,7 +97,7 @@ const AddPurchasePopup = ({ categories, onSave, onClose }) => {
               >
                 Cancel
               </button>
-              <button type="submit" className="btn btn-success">
+              <button type="submit" className="btn primary-background-color">
                 Save
               </button>
             </div>

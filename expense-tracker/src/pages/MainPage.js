@@ -8,6 +8,7 @@ import EditCategoryPopup from "../components/EditCategoryPopUp";
 import EndSessionPopup from "../components/EndSessionPopUp";
 import AddPurchasePopup from "../components/AddPurchasePopUp";
 import PurchasesList from "../components/PurchasesList";
+import Footer from "../components/Footer";
 
 const MainPage = () => {
   const chartRef = useRef(null);
@@ -336,142 +337,145 @@ const MainPage = () => {
   });
 
   return (
-    <div className="bg-gray-100 min-h-screen p-8">
-      {showEditPopup && selectedPurchase && (
-        <EditCategoryPopup
-          categories={categories}
-          selectedPurchase={selectedPurchase}
-          onClose={() => setShowEditPopup(false)}
-          onSave={handleSaveCategory}
-        />
-      )}
-      {showConfirmationPopup && (
-        <EndSessionPopup
-          onClose={() => setShowConfirmationPopup(false)}
-          onConfirm={handleConfirmEndSession}
-        />
-      )}
-      {showAddPurchaseForm && (
-        <AddPurchasePopup
-          categories={categories}
-          onSave={handleAddPurchase}
-          onClose={() => setShowAddPurchaseForm(false)}
-        />
-      )}
-      <div className="text-center mb-4">
-        <div className="flex items-center justify-between">
-          <button
-            onClick={handleFinishClick}
-            className="btn btn-outline-danger"
-          >
-            Finish
-          </button>
-          <h1 className="text-2xl font-bold primary-color ml-4">
-            {getFormattedDateRange()}
-          </h1>
-          <div className="mr-4">
+    <div>
+      <div className="bg-gray-100 min-h-screen p-8">
+        {showEditPopup && selectedPurchase && (
+          <EditCategoryPopup
+            categories={categories}
+            selectedPurchase={selectedPurchase}
+            onClose={() => setShowEditPopup(false)}
+            onSave={handleSaveCategory}
+          />
+        )}
+        {showConfirmationPopup && (
+          <EndSessionPopup
+            onClose={() => setShowConfirmationPopup(false)}
+            onConfirm={handleConfirmEndSession}
+          />
+        )}
+        {showAddPurchaseForm && (
+          <AddPurchasePopup
+            categories={categories}
+            onSave={handleAddPurchase}
+            onClose={() => setShowAddPurchaseForm(false)}
+          />
+        )}
+        <div className="text-center mb-4">
+          <div className="flex items-center justify-between">
             <button
-              className={`mr-2 p-2 rounded-lg text-base ${
-                financial ? "primary-color" : "bg-white"
-              }`}
-              onClick={() => setFinancial(true)}
+              onClick={handleFinishClick}
+              className="btn btn-outline-danger"
             >
-              Outcome
+              Finish
             </button>
-            <button
-              className={`p-2 rounded-lg text-base ${
-                !financial ? "primary-color" : "bg-white"
-              }`}
-              onClick={() => {
-                console.log("Income button clicked");
-                setFinancial(false);
-              }}
-            >
-              Income
-            </button>
-          </div>
-        </div>
-      </div>
-      <div className="container my-5">
-        <div className="row justify-content-center">
-          <div className="col-md-4 mb-4">
-            <div className="card shadow border-0">
-              <div className="card-body">
-                <canvas ref={chartRef}></canvas>
-              </div>
+            <h1 className="text-2xl font-bold primary-color ml-4">
+              {getFormattedDateRange()}
+            </h1>
+            <div className="mr-4">
+              <button
+                className={`mr-2 p-2 rounded-lg text-base ${
+                  financial ? "primary-color" : "bg-white"
+                }`}
+                onClick={() => setFinancial(true)}
+              >
+                Outcome
+              </button>
+              <button
+                className={`p-2 rounded-lg text-base ${
+                  !financial ? "primary-color" : "bg-white"
+                }`}
+                onClick={() => {
+                  console.log("Income button clicked");
+                  setFinancial(false);
+                }}
+              >
+                Income
+              </button>
             </div>
           </div>
-
-          <div className="col-md-8">
-            <div className="card shadow border-0">
-              <div className="card-body">
-                <div className="row">
-                  {pieChartData.labels.map((category, index) => (
-                    <div
-                      key={index}
-                      className="col-6 col-md-4 col-lg-3 mb-3 d-flex justify-content-center"
-                    >
-                      <div
-                        key={category}
-                        className="d-flex flex-column justify-content-center align-items-center text-center rounded cursor-pointer"
-                        style={{
-                          backgroundColor:
-                            pieChartData.datasets[0].backgroundColor[index],
-                          width: "100%", // Fixed width
-                          height: "100px", // Fixed height
-                        }}
-                        onMouseEnter={(e) =>
-                          (e.currentTarget.style.backgroundColor =
-                            pieChartData.datasets[0].hoverBackgroundColor[
-                              index
-                            ])
-                        }
-                        onMouseLeave={(e) =>
-                          (e.currentTarget.style.backgroundColor =
-                            pieChartData.datasets[0].backgroundColor[index])
-                        }
-                        onClick={() => setCurrentCategory(category)}
-                      >
-                        <p className="text-white m-0">{category}</p>
-                        <small className="text-white">
-                          {pieChartData.datasets[0].data[index]}€
-                        </small>
-                      </div>
-                    </div>
-                  ))}
+        </div>
+        <div className="container my-5">
+          <div className="row justify-content-center">
+            <div className="col-md-4 mb-4">
+              <div className="card shadow border-0">
+                <div className="card-body">
+                  <canvas ref={chartRef}></canvas>
                 </div>
+              </div>
+            </div>
 
-                <button
-                  className="btn btn-outline-secondary w-100 mt-3"
-                  onClick={() => setCurrentCategory("All")}
-                >
-                  Total Amount: {totalSum}€
-                </button>
+            <div className="col-md-8">
+              <div className="card shadow border-0">
+                <div className="card-body">
+                  <div className="row">
+                    {pieChartData.labels.map((category, index) => (
+                      <div
+                        key={index}
+                        className="col-6 col-md-4 col-lg-3 mb-3 d-flex justify-content-center"
+                      >
+                        <div
+                          key={category}
+                          className="d-flex flex-column justify-content-center align-items-center text-center rounded cursor-pointer"
+                          style={{
+                            backgroundColor:
+                              pieChartData.datasets[0].backgroundColor[index],
+                            width: "100%", // Fixed width
+                            height: "100px", // Fixed height
+                          }}
+                          onMouseEnter={(e) =>
+                            (e.currentTarget.style.backgroundColor =
+                              pieChartData.datasets[0].hoverBackgroundColor[
+                                index
+                              ])
+                          }
+                          onMouseLeave={(e) =>
+                            (e.currentTarget.style.backgroundColor =
+                              pieChartData.datasets[0].backgroundColor[index])
+                          }
+                          onClick={() => setCurrentCategory(category)}
+                        >
+                          <p className="text-white m-0">{category}</p>
+                          <small className="text-white">
+                            {pieChartData.datasets[0].data[index]}€
+                          </small>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <button
+                    className="btn btn-outline-secondary w-100 mt-3"
+                    onClick={() => setCurrentCategory("All")}
+                  >
+                    Total Amount: {totalSum}€
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="container mt-4">
-        <h2 className="mb-4">Purchases</h2>
-        <button
-          className="btn btn-outline-success"
-          onClick={() => setShowAddPurchaseForm(true)}
-        >
-          Add a Purchase
-        </button>
-        {sortedEntries.map(([date, purchases]) => (
-          <div key={date}>
-            <h5 className="mb-3 my-5 primary-color">{date}</h5>
-            <PurchasesList
-              financial={financial}
-              purchases={purchases}
-              onEditClick={handleEditClick}
-            />
-          </div>
-        ))}
+        <div className="container mt-4">
+          <h2 className="mb-4">Purchases</h2>
+          <button
+            className="btn btn-outline-success"
+            onClick={() => setShowAddPurchaseForm(true)}
+          >
+            Add a Purchase
+          </button>
+          {sortedEntries.map(([date, purchases]) => (
+            <div key={date}>
+              <h5 className="mb-3 my-5 primary-color">{date}</h5>
+              <PurchasesList
+                financial={financial}
+                purchases={purchases}
+                onEditClick={handleEditClick}
+              />
+            </div>
+          ))}
+        </div>
       </div>
+      <Footer />
     </div>
   );
 };
