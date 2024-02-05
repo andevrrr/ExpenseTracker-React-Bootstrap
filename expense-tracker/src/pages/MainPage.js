@@ -10,6 +10,8 @@ import AddPurchasePopup from "../components/AddPurchasePopUp";
 import PurchasesList from "../components/PurchasesList";
 import Footer from "../components/Footer";
 
+const baseURL = process.env.REACT_APP_API_BASE_URL;
+
 const MainPage = () => {
   const chartRef = useRef(null);
   const [currentCategory, setCurrentCategory] = useState("All");
@@ -61,7 +63,7 @@ const MainPage = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await fetch("http://localhost:3000/get", {
+        const response = await fetch(`http://localhost:3000/get`, {
           method: "GET",
           credentials: "include",
         });
@@ -117,7 +119,7 @@ const MainPage = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/addPurchase", {
+      const response = await fetch(`${baseURL}/addPurchase`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -159,7 +161,7 @@ const MainPage = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch("http://localhost:3000/deleteSession", {
+      const response = await fetch(`${baseURL}/deleteSession`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -192,7 +194,7 @@ const MainPage = () => {
 
       console.log(payload);
 
-      const response = await fetch("http://localhost:3000/updateCategory", {
+      const response = await fetch(`${baseURL}/updateCategory`, {
         method: "POST",
         credentials: "include",
         headers: {
