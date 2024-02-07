@@ -1,6 +1,11 @@
-import { FiEdit } from "react-icons/fi";
+import { FiEdit, FiX } from "react-icons/fi";
 
-const PurchasesList = ({ financial, purchases, onEditClick }) => {
+const PurchasesList = ({
+  financial,
+  purchases,
+  onEditClick,
+  onDeleteClick,
+}) => {
   return (
     <>
       {purchases.map((purchase, index) => (
@@ -17,10 +22,16 @@ const PurchasesList = ({ financial, purchases, onEditClick }) => {
             </div>
             <div className="col-4 d-flex justify-content-end">
               <button
-                className="btn btn-outline-secondary"
+                className="btn btn-outline-secondary me-2"
                 onClick={() => onEditClick(purchase)}
               >
                 <FiEdit />
+              </button>
+              <button
+                className="btn btn-outline-danger"
+                onClick={() => onDeleteClick(purchase)}
+              >
+                <FiX />
               </button>
             </div>
           </div>
