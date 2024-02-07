@@ -6,7 +6,7 @@ const AddPurchasePopup = ({ categories, onSave, onClose }) => {
     businessName: "",
     payer: "",
     amount: "",
-    category: "",
+    category: categories.length > 0 ? categories[0] : "Other",
   });
 
   const handleChange = (e) => {
