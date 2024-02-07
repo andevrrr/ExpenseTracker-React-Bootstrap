@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import axios from "axios";
 
+const baseURL = 'http://localhost:3000';
+
 const FileUploader = ({
   onFileSelectSuccess,
   onFileSelectError,
@@ -22,7 +24,7 @@ const FileUploader = ({
       const formData = new FormData();
       formData.append("file", selectedFile);
       axios
-        .post("http://localhost:3000/upload", formData, {
+        .post(`${baseURL}/upload`, formData, {
           withCredentials: true,
           headers: {
             "Content-Type": "multipart/form-data",

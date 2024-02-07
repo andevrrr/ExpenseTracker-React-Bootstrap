@@ -10,7 +10,7 @@ import AddPurchasePopup from "../components/AddPurchasePopUp";
 import PurchasesList from "../components/PurchasesList";
 import Footer from "../components/Footer";
 
-const baseURL = process.env.REACT_APP_API_BASE_URL;
+const baseURL = 'http://localhost:3000';
 
 const MainPage = () => {
   const chartRef = useRef(null);
@@ -63,7 +63,7 @@ const MainPage = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await fetch(`http://localhost:3000/get`, {
+        const response = await fetch(`${baseURL}/get`, {
           method: "GET",
           credentials: "include",
         });
