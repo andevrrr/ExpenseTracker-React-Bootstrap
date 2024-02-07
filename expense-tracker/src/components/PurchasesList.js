@@ -11,6 +11,10 @@ const PurchasesList = ({ financial, purchases, onEditClick }) => {
                 {financial ? purchase.businessName : purchase.payer}
               </strong>
             </div>
+            <div className="col-4 text-end">
+              <div>{purchase.amount}€</div>
+              <div className="text-muted">{purchase.category}</div>
+            </div>
             <div className="col-4 d-flex justify-content-end">
               <button
                 className="btn btn-outline-secondary"
@@ -18,10 +22,6 @@ const PurchasesList = ({ financial, purchases, onEditClick }) => {
               >
                 <FiEdit />
               </button>
-            </div>
-            <div className="col-4 text-end">
-              <div>{purchase.amount}€</div>
-              <div className="text-muted">{purchase.category}</div>
             </div>
           </div>
         </div>
