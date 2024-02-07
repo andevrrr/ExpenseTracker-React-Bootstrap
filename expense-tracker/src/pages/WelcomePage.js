@@ -11,7 +11,7 @@ const WelcomePage = () => {
 
   const onFileUpload = (uploadedFile) => {
     const categorizedData = [];
-    navigate("/finances");
+    navigate("/");
   };
 
   const onFileUploadError = (message) => {

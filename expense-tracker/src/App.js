@@ -11,8 +11,8 @@ const App = () => {
     <BrowserRouter>
       <Suspense>
         <Routes>
-          <Route index element={<WelcomePage />} />
-          <Route path="/finances" element={<MainPage />} />
+          <Route path="/upload" element={<WelcomePage />} />
+          <Route index path="/" element={<MainPage />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

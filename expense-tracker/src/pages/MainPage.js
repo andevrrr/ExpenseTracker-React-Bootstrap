@@ -75,7 +75,7 @@ const MainPage = () => {
       } catch (err) {
         setError(err.message);
         console.error(err);
-        navigate("/");
+        navigate("/upload");
       } finally {
         setIsLoading(false);
       }
@@ -170,7 +170,7 @@ const MainPage = () => {
       }
       const data = await response.json();
       console.log(data.message);
-      navigate("/");
+      navigate("/upload");
     } catch (error) {
       setError("Failed to end session. Please try again.");
       console.error(error);
