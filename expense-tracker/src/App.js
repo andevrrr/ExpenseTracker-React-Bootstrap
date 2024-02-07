@@ -12,7 +12,7 @@ const App = () => {
       <Suspense>
         <Routes>
           <Route index element={<WelcomePage />} />
-          <Route path="/main" element={<MainPage />} />
+          <Route path="/finances" element={<MainPage />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
