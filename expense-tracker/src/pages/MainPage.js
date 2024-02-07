@@ -7,15 +7,17 @@ import categoryColors from "../utils/categoryColors";
 import EditCategoryPopup from "../components/EditCategoryPopUp";
 import EndSessionPopup from "../components/EndSessionPopUp";
 import AddPurchasePopup from "../components/AddPurchasePopUp";
+import DeletePurchasePopUp from "../components/DeletePurchasePopUp";
 import PurchasesList from "../components/PurchasesList";
 import Footer from "../components/Footer";
 
-const baseURL = 'http://localhost:3000';
+const baseURL = "http://localhost:3000";
 
 const MainPage = () => {
   const chartRef = useRef(null);
   const [currentCategory, setCurrentCategory] = useState("All");
   const [showEditPopup, setShowEditPopup] = useState(false);
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [selectedPurchase, setSelectedPurchase] = useState(null);
   const [fetchedData, setFetchedData] = useState();
   const [categorizedData, setCategorizedData] = useState([]);
@@ -182,6 +184,53 @@ const MainPage = () => {
   const handleEditClick = (purchase) => {
     setSelectedPurchase(purchase);
     setShowEditPopup(true);
+  };
+
+  const handleConfirmDeletePurchase = async () => {
+    if (selectedPurchase && selectedPurchase.id) {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(
+          `${baseURL}/deletePurchase/${selectedPurchase.id}`,
+          {
+            method: "DELETE",
+            credentials: "include",
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to delete the purchase.");
+        }
+        const data = await response.json();
+        console.log(data.message);
+
+        const updatedCategorizedData = categorizedData.filter(
+          (purchase) => purchase.id !== selectedPurchase.id
+        );
+        setCategorizedData(updatedCategorizedData);
+
+        const updatedFetchedData = { ...fetchedData };
+        const categoryKey = financial
+          ? "outcomeCategories"
+          : "incomeCategories";
+        updatedFetchedData[categoryKey] = updatedFetchedData[
+          categoryKey
+        ].filter((purchase) => purchase.id !== selectedPurchase.id);
+        setFetchedData(updatedFetchedData);
+
+        setShowDeletePopup(false);
+      } catch (error) {
+        setError("Failed to delete purchase. Please try again.");
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
+  const handleDeleteClick = (purchase) => {
+    setSelectedPurchase(purchase);
+    setShowDeletePopup(true);
   };
 
   const handleSaveCategory = async (newCategory, purchaseToUpdate) => {
@@ -362,6 +411,13 @@ const MainPage = () => {
             onClose={() => setShowAddPurchaseForm(false)}
           />
         )}
+        {showDeletePopup && selectedPurchase && (
+          <DeletePurchasePopUp
+            purchase={selectedPurchase}
+            onClose={() => setShowDeletePopup(false)}
+            onConfirm={handleConfirmDeletePurchase}
+          />
+        )}
         <div className="text-center mb-4">
           <div className="flex items-center justify-between">
             <button
@@ -472,6 +528,7 @@ const MainPage = () => {
                 financial={financial}
                 purchases={purchases}
                 onEditClick={handleEditClick}
+                onDeleteClick={handleDeleteClick}
               />
             </div>
           ))}
