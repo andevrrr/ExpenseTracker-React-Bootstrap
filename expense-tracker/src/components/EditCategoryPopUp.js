@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css"; // Make sure to import Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const EditCategoryPopup = ({
   onClose,
@@ -40,7 +40,7 @@ const EditCategoryPopup = ({
           </select>
           <div className="mt-3 d-flex justify-content-end">
             <button
-              className="btn me-2 primary-background-color"
+              className="btn me-2 btn-success primary-background-color border-0"
               style={{ color: "white" }}
               onClick={() => onSave(selectedCategory, selectedPurchase)}
             >

@@ -426,7 +426,7 @@ const MainPage = () => {
             >
               Finish
             </button>
-            <h1 className="text-2xl font-bold primary-color ml-4">
+            <h1 className="text-xl md:text-2xl font-bold primary-color ml-4">
               {getFormattedDateRange()}
             </h1>
             <div className="mr-4">
